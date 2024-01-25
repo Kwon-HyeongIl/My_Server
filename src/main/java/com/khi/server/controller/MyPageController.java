@@ -1,17 +1,16 @@
 package com.khi.server.controller;
 
 import com.khi.server.dto.request.MyPageCreateRequestDto;
+import com.khi.server.dto.response.MyPageResponseDto;
 import com.khi.server.dto.response.UserResponseDto;
+import com.khi.server.entity.MyPage;
 import com.khi.server.entity.User;
 import com.khi.server.service.MyPageService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/user")
@@ -25,5 +24,12 @@ public class MyPageController {
 
         User user = service.createMyPage(request);
         return new ResponseEntity<>(new UserResponseDto(user.getId()), HttpStatus.CREATED);
+    }
+
+    @GetMapping("/mypage/get")
+    public ResponseEntity<MyPageResponseDto> getMyPage() {
+
+        MyPage myPage = service.getMyPage();
+        return new ResponseEntity<>(new MyPageResponseDto(myPage.getContent()), HttpStatus.OK);
     }
 }

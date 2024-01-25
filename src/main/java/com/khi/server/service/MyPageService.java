@@ -20,12 +20,25 @@ public class MyPageService {
 
     public User createMyPage(MyPageCreateRequestDto request) {
 
-        String userEmail = SecurityContextHolder.getContext().getAuthentication().getName();
-        User user = userRepository.findUserByEmail(userEmail).orElseThrow(() -> new NullPointerException("토큰 인증을 받은 사용자가 존재하지 않습니다"));
-
         MyPage myPage = new MyPage(request.getContent());
         myPageRepository.save(myPage);
+
+        User user = getAuthUser();
         user.setMyPage(myPage);
+
+        return user;
+    }
+
+    public MyPage getMyPage() {
+
+        return getAuthUser().getMyPage();
+    }
+
+    private User getAuthUser() {
+
+        // 현재 실행중인 스레드에 대한 보안 컨텍스트에서 인증된 사용자의 정보를 가져옴
+        String userEmail = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userRepository.findUserByEmail(userEmail).orElseThrow(() -> new NullPointerException("토큰 인증을 받은 사용자가 존재하지 않습니다"));
 
         return user;
     }
