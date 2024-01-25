@@ -1,6 +1,6 @@
-package com.khi.server.configuration;
+package com.khi.server.aop.configuration;
 
-import com.khi.server.aop.MyAspect;
+import com.khi.server.aop.aspect.MyAspect;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

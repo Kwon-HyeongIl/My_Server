@@ -1,11 +1,11 @@
-package com.khi.server.service;
+package com.khi.server.mainLogic.service;
 
 import com.khi.server.dto.request.LoginRequestDto;
 import com.khi.server.dto.request.UserCreateRequestDto;
-import com.khi.server.entity.User;
+import com.khi.server.mainLogic.entity.User;
 import com.khi.server.exception.LoginFailerException;
-import com.khi.server.jwt.JwtTokenProvider;
-import com.khi.server.repository.UserRepository;
+import com.khi.server.security.jwt.utils.JwtTokenProvider;
+import com.khi.server.mainLogic.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

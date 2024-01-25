@@ -1,8 +1,8 @@
-package com.khi.server.controller;
+package com.khi.server.mainLogic.controller;
 
 import com.khi.server.dto.request.TeamRequestDto;
-import com.khi.server.entity.Team;
-import com.khi.server.service.TeamService;
+import com.khi.server.mainLogic.entity.Team;
+import com.khi.server.mainLogic.service.TeamService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

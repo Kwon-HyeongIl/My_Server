@@ -1,6 +1,6 @@
-package com.khi.server.repository;
+package com.khi.server.mainLogic.repository;
 
-import com.khi.server.entity.Team;
+import com.khi.server.mainLogic.entity.Team;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

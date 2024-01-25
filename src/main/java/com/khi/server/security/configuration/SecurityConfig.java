@@ -1,9 +1,9 @@
-package com.khi.server.configuration;
+package com.khi.server.security.configuration;
 
-import com.khi.server.jwt.JwtAccessDeniedHandler;
-import com.khi.server.jwt.JwtAuthenticationEntryPoint;
-import com.khi.server.jwt.JwtFilter;
-import com.khi.server.jwt.JwtTokenProvider;
+import com.khi.server.security.jwt.authExHandler.JwtAccessDeniedHandler;
+import com.khi.server.security.jwt.authExHandler.JwtAuthenticationEntryPoint;
+import com.khi.server.security.jwt.utils.JwtFilter;
+import com.khi.server.security.jwt.utils.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

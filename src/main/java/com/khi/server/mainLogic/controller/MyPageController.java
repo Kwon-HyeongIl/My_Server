@@ -1,11 +1,11 @@
-package com.khi.server.controller;
+package com.khi.server.mainLogic.controller;
 
 import com.khi.server.dto.request.MyPageCreateRequestDto;
 import com.khi.server.dto.response.MyPageResponseDto;
 import com.khi.server.dto.response.UserResponseDto;
-import com.khi.server.entity.MyPage;
-import com.khi.server.entity.User;
-import com.khi.server.service.MyPageService;
+import com.khi.server.mainLogic.entity.MyPage;
+import com.khi.server.mainLogic.entity.User;
+import com.khi.server.mainLogic.service.MyPageService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

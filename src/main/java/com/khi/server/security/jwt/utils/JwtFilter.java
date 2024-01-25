@@ -1,4 +1,4 @@
-package com.khi.server.jwt;
+package com.khi.server.security.jwt.utils;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -35,10 +35,9 @@ public class JwtFilter extends OncePerRequestFilter {
 
         String token = getToken(request.getHeader(HttpHeaders.AUTHORIZATION));
 
-        log.info("Jwt 토큰 유효성 검사 시작");
-
         // 토큰 유효성 검증
         if (jwtTokenProvider.validateToken(token, secretKey)) {
+
             log.info("Jwt 토큰 유효성 검증을 통과했습니다");
 
             String email = jwtTokenProvider.getUserEmail(token, secretKey);
@@ -49,6 +48,7 @@ public class JwtFilter extends OncePerRequestFilter {
             /*
              * 인증 정보 설정을 하지 않고 doFilter 메서드를 호출 할 경우,
              * 스프링 시큐리티가 해당 요청이 인증되지 않았음을 감지하고 AuthenticationEntryPoint 실행
+             * 또한, 현재 스레드의 사용자를 보안 컨텍스트에 등록
              */
         }
 

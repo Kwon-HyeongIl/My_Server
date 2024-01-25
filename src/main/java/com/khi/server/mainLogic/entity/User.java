@@ -1,4 +1,4 @@
-package com.khi.server.entity;
+package com.khi.server.mainLogic.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;

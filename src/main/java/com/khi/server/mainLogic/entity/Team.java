@@ -1,5 +1,6 @@
-package com.khi.server.entity;
+package com.khi.server.mainLogic.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -10,15 +11,16 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class MyPage {
+public class Team {
 
     @Id
     @GeneratedValue
     private Long id;
 
-    private String content;
+    @Column(length = 10)
+    private String teamName;
 
-    public MyPage(String content) {
-        this.content = content;
+    public Team(String teamName) {
+        this.teamName = teamName;
     }
 }

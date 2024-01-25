@@ -1,6 +1,6 @@
-package com.khi.server.repository;
+package com.khi.server.mainLogic.repository;
 
-import com.khi.server.entity.MyPage;
+import com.khi.server.mainLogic.entity.MyPage;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

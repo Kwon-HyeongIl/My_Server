@@ -1,4 +1,4 @@
-package com.khi.server.controller;
+package com.khi.server.exception.controller;
 
 import com.khi.server.dto.response.ErrorResultResponseDto;
 import com.khi.server.exception.LoginFailerException;
