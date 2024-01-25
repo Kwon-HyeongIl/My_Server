@@ -16,9 +16,9 @@ public class MyAspect {
     @Around("execution(* com.khi.server..*(..)) && !target(com.khi.server.aop.configuration.AopConfig)")
     public Object doLog(ProceedingJoinPoint joinPoint) throws Throwable {
 
-        String fullLog = String.valueOf(joinPoint.getSignature());
-        String classType = fullLog.split("\\.")[4];
-        String methodType = fullLog.split("\\.")[5].split("\\(")[0];
+        String[] fullLogArr = String.valueOf(joinPoint.getSignature()).split("\\.");
+        String classType = fullLogArr[fullLogArr.length-2];
+        String methodType = fullLogArr[fullLogArr.length-1].split("\\(")[0];
 
         log.info("[MyLog] " + "(" + classType + ") " + methodType + " 메서드 호출");
 
