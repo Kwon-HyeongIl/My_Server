@@ -6,6 +6,10 @@ import jakarta.validation.constraints.NotEmpty;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
 
 @Entity
 @Getter
@@ -34,6 +38,7 @@ public class User {
     @ManyToOne
     @JoinColumn(name = "TEAM_ID")
     private Team team;
+
 
     public User(String userName, String userId, String password) {
         this.userName = userName;

@@ -8,6 +8,7 @@ import com.khi.server.mainLogic.entity.User;
 import com.khi.server.mainLogic.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

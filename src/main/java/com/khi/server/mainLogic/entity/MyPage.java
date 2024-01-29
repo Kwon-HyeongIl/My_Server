@@ -18,7 +18,13 @@ public class MyPage {
 
     private String content;
 
+    private String teamName;
+
     public MyPage(String content) {
         this.content = content;
+    }
+
+    public void setTeamName(String teamName) {
+        this.teamName = teamName;
     }
 }

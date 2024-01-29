@@ -30,6 +30,6 @@ public class MyPageController {
     public ResponseEntity<MyPageResponseDto> getMyPage() {
 
         MyPage myPage = service.getMyPage();
-        return new ResponseEntity<>(new MyPageResponseDto(myPage.getContent()), HttpStatus.OK);
+        return new ResponseEntity<>(new MyPageResponseDto(myPage.getContent(), myPage.getTeamName()), HttpStatus.OK);
     }
 }

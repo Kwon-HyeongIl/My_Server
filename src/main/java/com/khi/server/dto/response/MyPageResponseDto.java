@@ -8,4 +8,6 @@ import lombok.Getter;
 public class MyPageResponseDto {
 
     private String content;
+
+    private String teamName;
 }

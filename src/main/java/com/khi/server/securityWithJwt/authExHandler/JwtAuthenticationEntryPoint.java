@@ -1,4 +1,4 @@
-package com.khi.server.security.jwt.authExHandler;
+package com.khi.server.securityWithJwt.authExHandler;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
