@@ -22,7 +22,7 @@ public class User {
 
     @NotEmpty
     @Column(length = 10)
-    private String userName;
+    private String username;
 
     @NotEmpty
     @Email
@@ -40,8 +40,8 @@ public class User {
     private Team team;
 
 
-    public User(String userName, String userId, String password) {
-        this.userName = userName;
+    public User(String username, String userId, String password) {
+        this.username = username;
         this.email = userId;
         this.password = password;
     }

@@ -12,5 +12,5 @@ import lombok.NoArgsConstructor;
 public class TeamRequestDto {
 
     @NotEmpty
-    private String teamName;
+    private String name;
 }

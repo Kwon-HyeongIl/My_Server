@@ -18,9 +18,9 @@ public class Team {
     private Long id;
 
     @Column(length = 10)
-    private String teamName;
+    private String name;
 
-    public Team(String teamName) {
-        this.teamName = teamName;
+    public Team(String name) {
+        name = name;
     }
 }

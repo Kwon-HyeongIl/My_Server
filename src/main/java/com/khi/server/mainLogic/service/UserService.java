@@ -22,7 +22,7 @@ public class UserService {
 
         String encodedPassword = passwordEncoder.encode(requestUser.getPassword());
 
-        User user = new User(requestUser.getUserName(), requestUser.getEmail(), encodedPassword);
+        User user = new User(requestUser.getUsername(), requestUser.getEmail(), encodedPassword);
         repository.save(user);
 
         return user;

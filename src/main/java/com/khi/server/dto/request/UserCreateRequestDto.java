@@ -15,7 +15,7 @@ public class UserCreateRequestDto {
 
     @NotEmpty
     @Column(length = 10)
-    private String userName;
+    private String username;
 
     @NotEmpty
     @Email

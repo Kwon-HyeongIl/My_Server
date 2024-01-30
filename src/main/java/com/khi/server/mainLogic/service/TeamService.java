@@ -25,7 +25,7 @@ public class TeamService {
         User user = getAuthUser();
         isExistMyPage(user);
 
-        Team team = new Team(request.getTeamName());
+        Team team = new Team(request.getName());
         teamRepository.save(team);
         user.setTeam(team);
 
@@ -39,7 +39,7 @@ public class TeamService {
         User user = getAuthUser();
         isExistMyPage(user);
 
-        Team team = teamRepository.findTeamByTeamName(request.getTeamName()).orElseThrow(() -> new NullPointerException("입력하신 팀이 존재하지 않습니다"));
+        Team team = teamRepository.findTeamByTeamName(request.getName()).orElseThrow(() -> new NullPointerException("입력하신 팀이 존재하지 않습니다"));
         user.setTeam(team);
 
         setTeamNameToMyPage(user, team);
@@ -66,6 +66,6 @@ public class TeamService {
     private void setTeamNameToMyPage(User user, Team team) {
 
         MyPage userMyPage = user.getMyPage();
-        userMyPage.setTeamName(team.getTeamName());
+        userMyPage.setTeamName(team.getName());
     }
 }
