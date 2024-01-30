@@ -4,7 +4,7 @@ import com.khi.server.dto.request.LoginRequestDto;
 import com.khi.server.dto.request.UserCreateRequestDto;
 import com.khi.server.mainLogic.entity.User;
 import com.khi.server.exception.LoginFailerException;
-import com.khi.server.securityWithJwt.utils.JwtTokenProvider;
+import com.khi.server.securityWithJwt.jwtUtils.JwtTokenProvider;
 import com.khi.server.mainLogic.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;

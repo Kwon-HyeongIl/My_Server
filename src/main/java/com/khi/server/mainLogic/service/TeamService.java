@@ -8,6 +8,7 @@ import com.khi.server.mainLogic.repository.TeamRepository;
 import com.khi.server.mainLogic.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -40,7 +41,7 @@ public class TeamService {
         User user = getAuthUser();
         isExistMyPage(user);
 
-        Team team = teamRepository.findTeamByTeamName(request.getName()).orElseThrow(() -> new NullPointerException("입력하신 팀이 존재하지 않습니다"));
+        Team team = teamRepository.findTeamByName(request.getName()).orElseThrow(() -> new NullPointerException("입력하신 팀이 존재하지 않습니다"));
         user.setTeam(team);
 
         setTeamNameToMyPage(user, team);

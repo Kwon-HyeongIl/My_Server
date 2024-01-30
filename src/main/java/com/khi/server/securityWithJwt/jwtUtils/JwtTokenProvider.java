@@ -1,4 +1,4 @@
-package com.khi.server.securityWithJwt.utils;
+package com.khi.server.securityWithJwt.jwtUtils;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
