@@ -23,14 +23,14 @@ public class TeamController {
     public ResponseEntity<String> creatTeam(@RequestBody @Valid TeamRequestDto request) {
 
         Team team = service.createTeam(request);
-        return new ResponseEntity<>(team.getTeamName(), HttpStatus.CREATED);
+        return new ResponseEntity<>(team.getName(), HttpStatus.CREATED);
     }
 
     @PostMapping("/team/set")
     public ResponseEntity<String> setTeam(@RequestBody @Valid TeamRequestDto request) {
 
         Team team = service.setTeam(request);
-        return new ResponseEntity<>(team.getTeamName(), HttpStatus.OK);
+        return new ResponseEntity<>(team.getName(), HttpStatus.OK);
     }
 
 }

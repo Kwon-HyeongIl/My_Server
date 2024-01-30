@@ -9,7 +9,10 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
-// 인가 예외 처리 클래스
+/*
+ * 인가 예외 처리 클래스
+ * 스프링 시큐리티 필터체인이나 인증/인가 과정 중에 발생하는 AccessDeniedException 에외 등을 캐치
+ */
 @Component
 public class JwtAccessDeniedHandler implements AccessDeniedHandler {
 

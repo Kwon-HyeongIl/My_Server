@@ -5,6 +5,7 @@ import com.khi.server.exception.LoginFailerException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -26,14 +27,21 @@ public class ApiExceptionController {
     }
 
     @ExceptionHandler(NullPointerException.class)
-    public ResponseEntity<ErrorResultResponseDto> notFoundExHandler(NullPointerException e) {
+    public ResponseEntity<ErrorResultResponseDto> etcNotFoundExHandler(NullPointerException e) {
 
         return new ResponseEntity<>(new ErrorResultResponseDto("not found", e.getMessage()), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(UsernameNotFoundException.class)
+    public ResponseEntity<ErrorResultResponseDto> userNotFoundExHandler(UsernameNotFoundException e) {
+
+        return new ResponseEntity<>(new ErrorResultResponseDto("user not found", e.getMessage()), HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity<ErrorResultResponseDto> accessDeniedExHandler(AccessDeniedException e) {
 
-        return new ResponseEntity<>(new ErrorResultResponseDto("access denied", e.getMessage()), HttpStatus.BAD_REQUEST);
+        // 서비스 계층에서 발생하는 AccessDeniedException은 JwtAccessDeniedHandler가 캐치하지 못함
+        return new ResponseEntity<>(new ErrorResultResponseDto("[service layer] access denied", e.getMessage()), HttpStatus.UNAUTHORIZED);
     }
 }
