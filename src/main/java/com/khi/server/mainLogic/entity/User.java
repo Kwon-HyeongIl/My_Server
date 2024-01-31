@@ -40,6 +40,9 @@ public class User {
     @JoinColumn(name = "TEAM_ID")
     private Team team;
 
+    @OneToMany(mappedBy = "USER")
+    private List<Authority> authorities;
+
 
     public User(String username, String userId, String password) {
         this.username = username;

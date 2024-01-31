@@ -15,7 +15,7 @@ public class Authority implements GrantedAuthority {
     @GeneratedValue
     private Long id;
 
-    private String authority;
+    private String name;
 
     @ManyToOne
     @JoinColumn(name = "USER_ID")
@@ -23,6 +23,6 @@ public class Authority implements GrantedAuthority {
 
     @Override
     public String getAuthority() {
-        return authority;
+        return name;
     }
 }

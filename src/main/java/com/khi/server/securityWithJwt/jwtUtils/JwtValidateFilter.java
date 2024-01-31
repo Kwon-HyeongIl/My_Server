@@ -18,7 +18,8 @@ import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
-public class JwtFilter extends OncePerRequestFilter {
+public class JwtValidateFilter extends OncePerRequestFilter {
+    // 스프링 시큐리티는 필터가 한 번만 호출되는 것을 보장하지 않으므로, 필터가 요청당 한번만 실행하도록 보장하는 OncePerRequestFilter 구현
 
     private final JwtTokenProvider jwtTokenProvider;
     private final String secretKey;

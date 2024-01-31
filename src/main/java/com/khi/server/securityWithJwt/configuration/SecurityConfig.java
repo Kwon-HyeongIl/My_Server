@@ -2,12 +2,13 @@ package com.khi.server.securityWithJwt.configuration;
 
 import com.khi.server.securityWithJwt.authExHandler.JwtAccessDeniedHandler;
 import com.khi.server.securityWithJwt.authExHandler.JwtAuthenticationEntryPoint;
-import com.khi.server.securityWithJwt.jwtUtils.JwtFilter;
+import com.khi.server.securityWithJwt.jwtUtils.JwtValidateFilter;
 import com.khi.server.securityWithJwt.jwtUtils.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -22,9 +23,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 public class SecurityConfig {
 
+    private final AuthenticationProvider authenticationProvider;
     private final JwtTokenProvider jwtTokenProvider;
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
+
 
     @Value("${jwt.secret}")
     private String secretKey;
@@ -51,6 +54,9 @@ public class SecurityConfig {
                 .sessionManagement(management -> management
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 
+                // AuthenticationProvider 등록
+                .authenticationProvider(authenticationProvider)
+
                 // 인증, 인가 예외 처리 클래스 등록
                 .exceptionHandling(exHandling -> exHandling
                         .authenticationEntryPoint(jwtAuthenticationEntryPoint)
@@ -59,10 +65,11 @@ public class SecurityConfig {
                 // 회원가입, 로그인 제외 스프링 시큐리티 적용
                 .authorizeHttpRequests(request -> request
                         .requestMatchers("/api/signup", "/api/login").permitAll()
+//                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated())
 
                 // 필터 체인에 필터 등록 (두 번째 매개변수의 필터 전에, 첫번째 매개변수 필터 실행)
-                .addFilterBefore(new JwtFilter(jwtTokenProvider, secretKey), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new JwtValidateFilter(jwtTokenProvider, secretKey), UsernamePasswordAuthenticationFilter.class)
 
                 .build();
     }
