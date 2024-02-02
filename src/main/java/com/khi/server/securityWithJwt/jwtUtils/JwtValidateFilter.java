@@ -22,7 +22,6 @@ public class JwtValidateFilter extends OncePerRequestFilter {
     // 스프링 시큐리티는 필터가 한 번만 호출되는 것을 보장하지 않으므로, 필터가 요청당 한번만 실행하도록 보장하는 OncePerRequestFilter 구현
 
     private final JwtTokenProvider jwtTokenProvider;
-    private final String secretKey;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -37,12 +36,13 @@ public class JwtValidateFilter extends OncePerRequestFilter {
         String token = getToken(request.getHeader(HttpHeaders.AUTHORIZATION));
 
         // 토큰 유효성 검증
-        if (jwtTokenProvider.validateToken(token, secretKey)) {
+        if (jwtTokenProvider.validateToken(token)) {
 
             log.info("Jwt 토큰 유효성 검증을 통과했습니다");
 
-            String email = jwtTokenProvider.getUserEmail(token, secretKey);
-            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(email, null, List.of(new SimpleGrantedAuthority("USER")));
+            String email = jwtTokenProvider.getUserEmail(token);
+            String authority = jwtTokenProvider.getUserAuthority(token);
+            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(email, null, List.of(new SimpleGrantedAuthority(authority)));
             // (보안상의 이유 + 비밀번호를 이미 검증)의 이유로 비밀번호 매개값에 null 대입
 
             // 인증 정보 설정

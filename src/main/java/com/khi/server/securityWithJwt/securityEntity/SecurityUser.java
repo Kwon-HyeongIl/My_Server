@@ -11,10 +11,11 @@ import java.util.Collection;
 public class SecurityUser implements UserDetails {
 
     private final User user;
+    private final Collection<? extends GrantedAuthority> authorities;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return user.getAuthorities().stream().toList();
+        return authorities.stream().toList();
     }
 
     @Override

@@ -31,14 +31,12 @@ public class JwtTokenProvider {
     // Jwt 토큰 생성
     public String createJwt(Authentication authentication) {
 
-        String authorities = authentication.getAuthorities().stream()
-                .map(grantedAuthority -> grantedAuthority.getAuthority())
-                .collect(Collectors.joining(","));
+        String authority = authentication.getAuthorities().iterator().next().getAuthority();
 
         return Jwts
                 .builder()
                 .claim("email", authentication.getName())
-                .claim("authorities", authorities)
+                .claim("authority", authority)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + expiredMs))
                 .signWith(SignatureAlgorithm.HS256, secretKey)
@@ -46,7 +44,7 @@ public class JwtTokenProvider {
     }
 
     // 토큰 유효성 검증
-    public boolean validateToken(String token, String secretKey) {
+    public boolean validateToken(String token) {
         try {
             Jwts.parser().setSigningKey(secretKey).build().parseClaimsJws(token);
             return true;
@@ -65,7 +63,7 @@ public class JwtTokenProvider {
         return false;
     }
 
-    public String getUserEmail(String token, String secretKey) {
+    public String getUserEmail(String token) {
         return Jwts
                 .parser()
                 .setSigningKey(secretKey)
@@ -73,5 +71,15 @@ public class JwtTokenProvider {
                 .parseClaimsJws(token)
                 .getBody()
                 .get("email", String.class);
+    }
+
+    public String getUserAuthority(String token) {
+        return Jwts
+                .parser()
+                .setSigningKey(secretKey)
+                .build()
+                .parseClaimsJws(token)
+                .getBody()
+                .get("authority", String.class);
     }
 }

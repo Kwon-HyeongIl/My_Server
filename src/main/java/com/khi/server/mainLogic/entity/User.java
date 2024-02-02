@@ -1,5 +1,6 @@
 package com.khi.server.mainLogic.entity;
 
+import com.khi.server.constants.UserType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
@@ -40,14 +41,14 @@ public class User {
     @JoinColumn(name = "TEAM_ID")
     private Team team;
 
-    @OneToMany(mappedBy = "user")
-    private List<Authority> authorities;
+    private UserType authority;
 
 
-    public User(String username, String userId, String password) {
+    public User(String username, String userId, String password, UserType authority) {
         this.username = username;
         this.email = userId;
         this.password = password;
+        this.authority = authority;
     }
 
     public void setMyPage(MyPage myPage) {

@@ -24,4 +24,6 @@ public class UserCreateRequestDto {
     @NotEmpty
     @Column(length = 30)
     private String password;
+
+    private String adminKey;
 }
