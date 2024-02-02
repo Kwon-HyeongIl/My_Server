@@ -44,9 +44,11 @@ public class UserService {
                 new UsernamePasswordAuthenticationToken(requestUser.getEmail(), requestUser.getPassword())
         );
 
-        log.info("로그인 성공, 토큰 발급 시작");
+        log.info("{} 권한, 로그인 성공, 토큰 발급 시작", authentication.getAuthorities());
+        String token = jwtTokenProvider.createJwt(authentication);
+        log.info("토큰이 정상적으로 발급되었습니다");
 
-        return jwtTokenProvider.createJwt(authentication);
+        return token;
     }
 
     //------------------------------------ private method ------------------------------------//

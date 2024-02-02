@@ -25,5 +25,6 @@ public class UserCreateRequestDto {
     @Column(length = 30)
     private String password;
 
-    private String adminKey;
+    // 기본값 추가
+    private String adminKey = "USER";
 }
