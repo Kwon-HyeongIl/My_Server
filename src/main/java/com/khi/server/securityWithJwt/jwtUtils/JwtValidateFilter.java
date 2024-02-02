@@ -43,6 +43,7 @@ public class JwtValidateFilter extends OncePerRequestFilter {
 
             String email = jwtTokenProvider.getUserEmail(token, secretKey);
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(email, null, List.of(new SimpleGrantedAuthority("USER")));
+            // (보안상의 이유 + 비밀번호를 이미 검증)의 이유로 비밀번호 매개값에 null 대입
 
             // 인증 정보 설정
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);

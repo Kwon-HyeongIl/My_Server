@@ -40,7 +40,7 @@ public class User {
     @JoinColumn(name = "TEAM_ID")
     private Team team;
 
-    @OneToMany(mappedBy = "USER")
+    @OneToMany(mappedBy = "user")
     private List<Authority> authorities;
 
 

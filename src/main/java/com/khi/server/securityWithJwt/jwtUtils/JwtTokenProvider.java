@@ -7,9 +7,11 @@ import io.jsonwebtoken.security.SignatureException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Component
@@ -27,11 +29,16 @@ public class JwtTokenProvider {
     private Long expiredMs = 1000 * 60 * 60l;
 
     // Jwt 토큰 생성
-    public String createJwt(String email) {
+    public String createJwt(Authentication authentication) {
+
+        String authorities = authentication.getAuthorities().stream()
+                .map(grantedAuthority -> grantedAuthority.getAuthority())
+                .collect(Collectors.joining(","));
 
         return Jwts
                 .builder()
-                .claim("email", email)
+                .claim("email", authentication.getName())
+                .claim("authorities", authorities)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + expiredMs))
                 .signWith(SignatureAlgorithm.HS256, secretKey)
