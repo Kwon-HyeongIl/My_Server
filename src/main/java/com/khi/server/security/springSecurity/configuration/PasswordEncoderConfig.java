@@ -1,4 +1,4 @@
-package com.khi.server.securityWithJwt.configuration;
+package com.khi.server.security.springSecurity.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,4 +1,4 @@
-package com.khi.server.securityWithJwt.jwt;
+package com.khi.server.security.jwt;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

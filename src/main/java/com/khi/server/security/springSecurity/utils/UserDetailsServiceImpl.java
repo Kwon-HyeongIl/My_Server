@@ -1,9 +1,9 @@
-package com.khi.server.securityWithJwt.securityUtils;
+package com.khi.server.security.springSecurity.utils;
 
 import com.khi.server.constants.UserType;
 import com.khi.server.mainLogic.entity.User;
 import com.khi.server.mainLogic.repository.UserRepository;
-import com.khi.server.securityWithJwt.securityEntity.SecurityUser;
+import com.khi.server.security.springSecurity.entity.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,7 +11,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -26,7 +25,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         User findUser = repository.findUserByEmail(email).orElseThrow(() -> new UsernameNotFoundException("이메일과 일치하는 사용자가 없습니다"));
         UserType authority = findUser.getAuthority();
 
-        return new SecurityUser(findUser, List.of(new SimpleGrantedAuthority(authority.name())));
+        return new UserDetailsImpl(findUser, List.of(new SimpleGrantedAuthority(authority.name())));
         // Enum 타입인 UserType을 GrantedAuthority 타입 리스트로 변경
     }
 }

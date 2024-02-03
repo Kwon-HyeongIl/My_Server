@@ -1,4 +1,4 @@
-package com.khi.server.securityWithJwt.securityEntity;
+package com.khi.server.security.springSecurity.entity;
 
 import com.khi.server.mainLogic.entity.User;
 import lombok.RequiredArgsConstructor;
@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 
 @RequiredArgsConstructor
-public class SecurityUser implements UserDetails {
+public class UserDetailsImpl implements UserDetails {
 
     private final User user;
 

@@ -1,7 +1,6 @@
-package com.khi.server.securityWithJwt.securityUtils;
+package com.khi.server.security.springSecurity.utils;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
