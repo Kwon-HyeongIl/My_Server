@@ -1,14 +1,13 @@
 package com.khi.server.securityWithJwt.configuration;
 
-import com.khi.server.securityWithJwt.authExHandler.JwtAccessDeniedHandler;
-import com.khi.server.securityWithJwt.authExHandler.JwtAuthenticationEntryPoint;
-import com.khi.server.securityWithJwt.jwtUtils.JwtValidateFilter;
-import com.khi.server.securityWithJwt.jwtUtils.JwtTokenProvider;
+import com.khi.server.securityWithJwt.authExHandler.AccessDeniedHandlerImpl;
+import com.khi.server.securityWithJwt.authExHandler.AuthenticationEntryPointImpl;
+import com.khi.server.securityWithJwt.jwt.JwtFilter;
+import com.khi.server.securityWithJwt.jwt.JwtTokenProvider;
+import com.khi.server.securityWithJwt.jwt.JwtUtils;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -16,8 +15,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -28,8 +25,9 @@ public class SecurityConfig {
 
     private final AuthenticationProvider authenticationProvider;
     private final JwtTokenProvider jwtTokenProvider;
-    private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
-    private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
+    private final JwtUtils jwtUtils;
+    private final AuthenticationEntryPointImpl authenticationEntryPointImpl;
+    private final AccessDeniedHandlerImpl accessDeniedHandlerImpl;
 
     @Bean
     public AuthenticationManager authenticationManagerBean(HttpSecurity http) throws Exception {
@@ -55,8 +53,8 @@ public class SecurityConfig {
 
                 // 인증, 인가 예외 처리 클래스 등록
                 .exceptionHandling(exHandling -> exHandling
-                        .authenticationEntryPoint(jwtAuthenticationEntryPoint)
-                        .accessDeniedHandler(jwtAccessDeniedHandler))
+                        .authenticationEntryPoint(authenticationEntryPointImpl)
+                        .accessDeniedHandler(accessDeniedHandlerImpl))
 
                 // 회원가입, 로그인 제외 스프링 시큐리티 적용
                 .authorizeHttpRequests(request -> request
@@ -65,7 +63,7 @@ public class SecurityConfig {
                         .anyRequest().authenticated())
 
                 // 필터 체인에 필터 등록 (두 번째 매개변수의 필터 전에, 첫번째 매개변수 필터 실행)
-                .addFilterBefore(new JwtValidateFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new JwtFilter(jwtTokenProvider, jwtUtils), UsernamePasswordAuthenticationFilter.class)
 
                 .build();
     }

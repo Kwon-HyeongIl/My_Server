@@ -14,7 +14,7 @@ import java.io.IOException;
  * 스프링 시큐리티 필터체인이나 인증/인가 과정 중에 발생하는 AccessDeniedException 에외 등을 캐치
  */
 @Component
-public class JwtAccessDeniedHandler implements AccessDeniedHandler {
+public class AccessDeniedHandlerImpl implements AccessDeniedHandler {
 
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {

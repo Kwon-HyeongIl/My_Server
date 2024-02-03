@@ -11,6 +11,8 @@ import java.util.Collection;
 public class SecurityUser implements UserDetails {
 
     private final User user;
+
+    // 사용자는 권한을 하나만 갖지만, 오버라이드 메서드에 의해 어쩔수 없이 형식상 컬렉션 타입으로 설정
     private final Collection<? extends GrantedAuthority> authorities;
 
     @Override

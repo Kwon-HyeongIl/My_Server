@@ -14,7 +14,7 @@ import java.io.IOException;
  * 스프링 시큐리티 필터체인이나 인증/인가 과정 중에 발생하는 AuthenticationException 에외 등을 캐치
  */
 @Component
-public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
+public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint {
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {

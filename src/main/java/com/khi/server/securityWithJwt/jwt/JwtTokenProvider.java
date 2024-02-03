@@ -1,4 +1,4 @@
-package com.khi.server.securityWithJwt.jwtUtils;
+package com.khi.server.securityWithJwt.jwt;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
@@ -11,11 +11,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Component
-@RequiredArgsConstructor
 public class JwtTokenProvider {
 
     @Value("${jwt.secret}")
@@ -31,6 +29,7 @@ public class JwtTokenProvider {
     // Jwt 토큰 생성
     public String createJwt(Authentication authentication) {
 
+        // 형식상으로 있는 Collection 타입에서 하나의 권한만 가져옴
         String authority = authentication.getAuthorities().iterator().next().getAuthority();
 
         return Jwts
@@ -41,45 +40,5 @@ public class JwtTokenProvider {
                 .setExpiration(new Date(System.currentTimeMillis() + expiredMs))
                 .signWith(SignatureAlgorithm.HS256, secretKey)
                 .compact();
-    }
-
-    // 토큰 유효성 검증
-    public boolean validateToken(String token) {
-        try {
-            Jwts.parser().setSigningKey(secretKey).build().parseClaimsJws(token);
-            return true;
-
-        } catch (SignatureException e) {
-            log.info("유효하지 않은 Jwt 토큰입니다");
-
-        } catch (IllegalArgumentException e) {
-            log.info("Authorization이 없거나 잘못된 형식입니다");
-
-        } catch (ExpiredJwtException e) {
-            log.info("만료된 Jwt 토큰입니다");
-
-        }
-
-        return false;
-    }
-
-    public String getUserEmail(String token) {
-        return Jwts
-                .parser()
-                .setSigningKey(secretKey)
-                .build()
-                .parseClaimsJws(token)
-                .getBody()
-                .get("email", String.class);
-    }
-
-    public String getUserAuthority(String token) {
-        return Jwts
-                .parser()
-                .setSigningKey(secretKey)
-                .build()
-                .parseClaimsJws(token)
-                .getBody()
-                .get("authority", String.class);
     }
 }
