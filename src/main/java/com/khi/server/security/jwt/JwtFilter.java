@@ -67,7 +67,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
     // 허가된 Url은 토큰 검증 메서드를 거치지 않음
     private boolean isSkip(HttpServletRequest request){
-        String[] skipUrls = {"/api/signup", "/api/login"};
+        String[] skipUrls = {"/api/signup", "/api/signin"};
 
         if (Arrays.stream(skipUrls).anyMatch(url -> url.equals(request.getRequestURI()))) {
             return true;
