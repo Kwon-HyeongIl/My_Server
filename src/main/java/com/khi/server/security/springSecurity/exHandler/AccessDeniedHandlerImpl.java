@@ -1,4 +1,4 @@
-package com.khi.server.security.springSecurity.authExHandler;
+package com.khi.server.security.springSecurity.exHandler;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

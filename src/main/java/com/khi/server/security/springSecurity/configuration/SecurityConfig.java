@@ -1,7 +1,7 @@
 package com.khi.server.security.springSecurity.configuration;
 
-import com.khi.server.security.springSecurity.authExHandler.AccessDeniedHandlerImpl;
-import com.khi.server.security.springSecurity.authExHandler.AuthenticationEntryPointImpl;
+import com.khi.server.security.springSecurity.exHandler.AccessDeniedHandlerImpl;
+import com.khi.server.security.springSecurity.exHandler.AuthenticationEntryPointImpl;
 import com.khi.server.security.jwt.JwtFilter;
 import com.khi.server.security.jwt.JwtUtils;
 import lombok.RequiredArgsConstructor;
