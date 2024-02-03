@@ -1,6 +1,6 @@
 package com.khi.server.security.springSecurity.utils;
 
-import com.khi.server.constants.UserType;
+import com.khi.server.mainLogic.constants.UserType;
 import com.khi.server.mainLogic.entity.User;
 import com.khi.server.mainLogic.repository.UserRepository;
 import com.khi.server.security.springSecurity.entity.UserDetailsImpl;

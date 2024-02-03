@@ -1,7 +1,7 @@
-package com.khi.server.exception.controller;
+package com.khi.server.mainLogic.exception.controller;
 
-import com.khi.server.dto.response.ErrorResultResponseDto;
-import com.khi.server.exception.LoginFailerException;
+import com.khi.server.mainLogic.dto.response.ErrorResultResponseDto;
+import com.khi.server.mainLogic.exception.LoginFailerException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;

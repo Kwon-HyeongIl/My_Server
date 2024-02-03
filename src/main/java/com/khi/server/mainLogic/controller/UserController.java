@@ -1,9 +1,9 @@
 package com.khi.server.mainLogic.controller;
 
-import com.khi.server.dto.request.SigninRequestDto;
-import com.khi.server.dto.request.SignupRequestDto;
-import com.khi.server.dto.response.TokenResponseDto;
-import com.khi.server.dto.response.UserResponseDto;
+import com.khi.server.mainLogic.dto.request.SigninRequestDto;
+import com.khi.server.mainLogic.dto.request.SignupRequestDto;
+import com.khi.server.mainLogic.dto.response.TokenResponseDto;
+import com.khi.server.mainLogic.dto.response.UserResponseDto;
 import com.khi.server.mainLogic.entity.User;
 import com.khi.server.mainLogic.service.UserService;
 import jakarta.validation.Valid;

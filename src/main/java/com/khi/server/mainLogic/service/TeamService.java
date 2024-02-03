@@ -1,6 +1,6 @@
 package com.khi.server.mainLogic.service;
 
-import com.khi.server.dto.request.TeamRequestDto;
+import com.khi.server.mainLogic.dto.request.TeamRequestDto;
 import com.khi.server.mainLogic.entity.MyPage;
 import com.khi.server.mainLogic.entity.Team;
 import com.khi.server.mainLogic.entity.User;
@@ -8,7 +8,6 @@ import com.khi.server.mainLogic.repository.TeamRepository;
 import com.khi.server.mainLogic.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;

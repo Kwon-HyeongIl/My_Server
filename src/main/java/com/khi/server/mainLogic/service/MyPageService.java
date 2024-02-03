@@ -1,6 +1,6 @@
 package com.khi.server.mainLogic.service;
 
-import com.khi.server.dto.request.MyPageCreateRequestDto;
+import com.khi.server.mainLogic.dto.request.MyPageCreateRequestDto;
 import com.khi.server.mainLogic.entity.MyPage;
 import com.khi.server.mainLogic.entity.User;
 import com.khi.server.mainLogic.repository.MyPageRepository;

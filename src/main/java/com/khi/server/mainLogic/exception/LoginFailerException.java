@@ -1,4 +1,4 @@
-package com.khi.server.exception;
+package com.khi.server.mainLogic.exception;
 
 public class LoginFailerException extends RuntimeException {
 

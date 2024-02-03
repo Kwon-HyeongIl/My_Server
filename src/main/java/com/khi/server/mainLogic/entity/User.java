@@ -1,6 +1,6 @@
 package com.khi.server.mainLogic.entity;
 
-import com.khi.server.constants.UserType;
+import com.khi.server.mainLogic.constants.UserType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
