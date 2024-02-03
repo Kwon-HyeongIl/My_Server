@@ -1,8 +1,8 @@
 package com.khi.server.mainLogic.service;
 
 import com.khi.server.constants.UserType;
-import com.khi.server.dto.request.LoginRequestDto;
-import com.khi.server.dto.request.UserCreateRequestDto;
+import com.khi.server.dto.request.SigninRequestDto;
+import com.khi.server.dto.request.SignupRequestDto;
 import com.khi.server.mainLogic.entity.User;
 import com.khi.server.security.jwt.JwtTokenProvider;
 import com.khi.server.mainLogic.repository.UserRepository;
@@ -28,7 +28,7 @@ public class UserService {
     @Value("${admin.key}")
     private String adminKey;
 
-    public User createUser(UserCreateRequestDto requestUser) {
+    public User createUser(SignupRequestDto requestUser) {
 
         String encodedPassword = passwordEncoder.encode(requestUser.getPassword());
         UserType role = checkRole(requestUser.getAdminKey());
@@ -38,7 +38,7 @@ public class UserService {
         return user;
     }
 
-    public String login(LoginRequestDto requestUser) {
+    public String login(SigninRequestDto requestUser) {
 
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(requestUser.getEmail(), requestUser.getPassword())

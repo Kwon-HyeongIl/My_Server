@@ -11,7 +11,11 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class LoginRequestDto {
+public class SignupRequestDto {
+
+    @NotEmpty
+    @Column(length = 10)
+    private String username;
 
     @NotEmpty
     @Email
@@ -20,4 +24,7 @@ public class LoginRequestDto {
     @NotEmpty
     @Column(length = 30)
     private String password;
+
+    // 기본값 추가
+    private String adminKey = "USER";
 }
