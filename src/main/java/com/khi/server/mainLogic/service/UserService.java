@@ -4,7 +4,7 @@ import com.khi.server.mainLogic.constants.UserType;
 import com.khi.server.mainLogic.dto.request.SigninRequestDto;
 import com.khi.server.mainLogic.dto.request.SignupRequestDto;
 import com.khi.server.mainLogic.entity.User;
-import com.khi.server.security.jwt.JwtTokenProvider;
+import com.khi.server.security.jwt.JwtProvider;
 import com.khi.server.mainLogic.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +21,7 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
     private final UserRepository repository;
-    private final JwtTokenProvider jwtTokenProvider;
+    private final JwtProvider jwtProvider;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
 
@@ -45,7 +45,7 @@ public class UserService {
         );
 
         log.info("{} 권한, 로그인 성공, 토큰 발급 시작", authentication.getAuthorities());
-        String token = jwtTokenProvider.createJwt(authentication);
+        String token = jwtProvider.createJwt(authentication);
         log.info("토큰이 정상적으로 발급되었습니다");
 
         return token;

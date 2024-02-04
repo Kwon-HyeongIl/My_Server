@@ -1,4 +1,4 @@
-package com.khi.server.security.springSecurity.utils;
+package com.khi.server.security.springSecurity.authProvider;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @RequiredArgsConstructor
-public class AuthenticationProviderImpl implements AuthenticationProvider {
+public class UsernamePasswordAuthenticationProvider implements AuthenticationProvider {
 
     private final UserDetailsService userDetailsService;
     private final PasswordEncoder passwordEncoder;
@@ -47,6 +47,7 @@ public class AuthenticationProviderImpl implements AuthenticationProvider {
     public boolean supports(Class<?> authentication) {
         return UsernamePasswordAuthenticationToken.class.isAssignableFrom(authentication);
         /*
+         * AuthenticationManager의 AuthenticationProvider가 supports 메서드를 실행해서,
          * 전달된 authentication이 UsernamePasswordAuthenticationToken의 하위 타입인지 확인하고,boolean 값 반환
          * true일 경우, 스프링 시큐리티는 이 클래스의 authenticate 메서드를 호출
          */

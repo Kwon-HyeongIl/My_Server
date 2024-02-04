@@ -19,25 +19,6 @@ public class JwtUtils {
      * 해결하려면 직접 생성자를 만들어서 @Autowired 하거나, final 키워드 제거
      */
 
-    public boolean validateToken(String token) {
-        try {
-            Jwts.parser().setSigningKey(secretKey).build().parseClaimsJws(token);
-            return true;
-
-        } catch (SignatureException e) {
-            log.info("유효하지 않은 Jwt 토큰입니다");
-
-        } catch (IllegalArgumentException e) {
-            log.info("Authorization이 없거나 잘못된 형식입니다");
-
-        } catch (ExpiredJwtException e) {
-            log.info("만료된 Jwt 토큰입니다");
-
-        }
-
-        return false;
-    }
-
     public String getUserEmail(String token) {
         return Jwts
                 .parser()

@@ -2,14 +2,12 @@ package com.khi.server.security.springSecurity.configuration;
 
 import com.khi.server.security.springSecurity.exHandler.AccessDeniedHandlerImpl;
 import com.khi.server.security.springSecurity.exHandler.AuthenticationEntryPointImpl;
-import com.khi.server.security.jwt.JwtFilter;
+import com.khi.server.security.springSecurity.filter.JwtValidateFilter;
 import com.khi.server.security.jwt.JwtUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -22,17 +20,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final AuthenticationProvider authenticationProvider;
     private final JwtUtils jwtUtils;
+    private final AuthenticationManager authenticationManager;
     private final AuthenticationEntryPointImpl authenticationEntryPointImpl;
     private final AccessDeniedHandlerImpl accessDeniedHandlerImpl;
-
-    @Bean
-    public AuthenticationManager authenticationManagerBean(HttpSecurity http) throws Exception {
-        return http.getSharedObject(AuthenticationManagerBuilder.class)
-                .authenticationProvider(authenticationProvider)
-                .build();
-    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
@@ -46,9 +37,6 @@ public class SecurityConfig {
                 .sessionManagement(management -> management
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 
-                // AuthenticationProvider 등록
-                .authenticationProvider(authenticationProvider)
-
                 // 인증, 인가 예외 처리 클래스 등록
                 .exceptionHandling(exHandling -> exHandling
                         .authenticationEntryPoint(authenticationEntryPointImpl)
@@ -61,7 +49,11 @@ public class SecurityConfig {
                         .anyRequest().authenticated())
 
                 // 필터 체인에 필터 등록 (두 번째 매개변수의 필터 전에, 첫번째 매개변수 필터 실행)
-                .addFilterBefore(new JwtFilter(jwtUtils), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new JwtValidateFilter(jwtUtils, authenticationManager), UsernamePasswordAuthenticationFilter.class)
+                /*
+                 * formLogin()을 추가해야 UsernamePasswordAuthenticationFilter가 필터에 추가되는데, 현재는 formLogin()을 추가 안했으므로,
+                 * UsernamePasswordAuthenticationFilter는 형식상의 위치를 나타냄
+                 */
 
                 .build();
     }
