@@ -7,6 +7,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 
+/**
+ * UserDetails는 스프링 시큐리티가 인증 과정에서 사용자 정보를 관리하는데 필요한 정보를 제공하는 표준 인터페이스
+ * UserDetails를 사용함으로써, 미리 구현된 스프링 시큐리티와의 통합 기능(오버라이딩된 메서드 참조)을 직접 구현 없이 이용할 수 있음
+ */
 @RequiredArgsConstructor
 public class UserDetailsImpl implements UserDetails {
 
