@@ -5,6 +5,7 @@ import com.khi.server.mainLogic.entity.User;
 import com.khi.server.mainLogic.repository.UserRepository;
 import com.khi.server.security.springSecurity.entity.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -17,6 +18,7 @@ import java.util.List;
  * UserDetailsService를 스프링 빈으로 등록하면, 콘솔에 자동 생성된 암호가 출력 되지 않음
  * (자동 생성된 암호는 HTTP Basic 인증에 사용되는 암호)
  */
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService {

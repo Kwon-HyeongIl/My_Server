@@ -31,7 +31,6 @@ public class CustomUsernamePasswordAuthenticationFilter extends OncePerRequestFi
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
-
         if (isSkip(request)) {
 
             filterChain.doFilter(request, response);
@@ -50,13 +49,14 @@ public class CustomUsernamePasswordAuthenticationFilter extends OncePerRequestFi
             Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                     signinRequestDto.getEmail(), signinRequestDto.getPassword()
             ));
+
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
         } catch (IOException e) {
             throw new AuthenticationServiceException("인증 중 오류 발생", e);
         }
 
-
+        filterChain.doFilter(request, response);
     }
 
     private boolean isSkip(HttpServletRequest request) {
