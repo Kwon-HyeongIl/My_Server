@@ -18,7 +18,6 @@ import java.util.List;
  * UserDetailsService를 스프링 빈으로 등록하면, 콘솔에 자동 생성된 암호가 출력 되지 않음
  * (자동 생성된 암호는 HTTP Basic 인증에 사용되는 암호)
  */
-@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService {
@@ -31,7 +30,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         User findUser = repository.findUserByEmail(email).orElseThrow(() -> new UsernameNotFoundException("이메일과 일치하는 사용자가 없습니다"));
         UserType authority = findUser.getAuthority();
 
-        return new UserDetailsImpl(findUser, List.of(new SimpleGrantedAuthority(authority.name())));
         // Enum 타입인 UserType을 GrantedAuthority 타입 리스트로 변경
+        return new UserDetailsImpl(findUser, List.of(new SimpleGrantedAuthority(authority.name())));
     }
 }

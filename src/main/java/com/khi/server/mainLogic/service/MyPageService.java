@@ -35,8 +35,6 @@ public class MyPageService {
         return getAuthUser().getMyPage();
     }
 
-    //------------------------------------ private method ------------------------------------//
-
     private User getAuthUser() {
 
         // 현재 실행중인 스레드에 대한 보안 컨텍스트에서 인증된 사용자의 정보를 가져옴

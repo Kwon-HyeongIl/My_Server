@@ -6,10 +6,10 @@ import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Collection;
 
+@Getter
 public class JwtAuthenticationToken extends AbstractAuthenticationToken {
 
     private final Object principal;
-    @Getter
     private String token;
 
     // SecurityContext 저장용 생성자
@@ -24,7 +24,6 @@ public class JwtAuthenticationToken extends AbstractAuthenticationToken {
         this.principal = principal;
         this.token = token;
     }
-
 
     @Override
     public Object getPrincipal() {

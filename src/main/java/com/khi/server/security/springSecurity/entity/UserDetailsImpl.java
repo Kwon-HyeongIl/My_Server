@@ -31,8 +31,7 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public String getUsername() {
-        // 식별자로 이메일 반환
-        return user.getEmail();
+        return user.getEmail(); // 식별자로 email 반환
     }
 
     @Override

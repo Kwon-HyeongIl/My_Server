@@ -46,7 +46,6 @@ public class UserService {
         return token;
     }
 
-    //------------------------------------ private method ------------------------------------//
 
     private UserType checkRole(String inputAdminKey) {
 
