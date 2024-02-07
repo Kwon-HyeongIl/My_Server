@@ -1,4 +1,4 @@
-package com.khi.server.security.springSecurity.authentication;
+package com.khi.server.security.jwt.authentication;
 
 import lombok.Getter;
 import org.springframework.security.authentication.AbstractAuthenticationToken;

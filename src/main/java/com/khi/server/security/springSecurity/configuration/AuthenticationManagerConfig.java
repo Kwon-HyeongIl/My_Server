@@ -9,18 +9,18 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 
-@Configuration
-@RequiredArgsConstructor
-public class AuthenticationManagerConfig {
-
-    private final UsernamePasswordAuthenticationProvider usernamePasswordAuthenticationProvider;
-    private final JwtAuthenticationProvider jwtAuthenticationProvider;
-
-    @Bean
-    public AuthenticationManager authenticationManagerBean(HttpSecurity http) throws Exception {
-        return http.getSharedObject(AuthenticationManagerBuilder.class)
-                .authenticationProvider(usernamePasswordAuthenticationProvider)
-                .authenticationProvider(jwtAuthenticationProvider)
-                .build();
-    }
-}
+//@Configuration
+//@RequiredArgsConstructor
+//public class AuthenticationManagerConfig {
+//
+//    private final UsernamePasswordAuthenticationProvider usernamePasswordAuthenticationProvider;
+//    private final JwtAuthenticationProvider jwtAuthenticationProvider;
+//
+//    @Bean
+//    public AuthenticationManager authenticationManagerBean(HttpSecurity http) throws Exception {
+//        return http.getSharedObject(AuthenticationManagerBuilder.class)
+//                .authenticationProvider(usernamePasswordAuthenticationProvider)
+//                .authenticationProvider(jwtAuthenticationProvider)
+//                .build();
+//    }
+//}

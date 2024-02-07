@@ -1,4 +1,4 @@
-package com.khi.server.security.jwt;
+package com.khi.server.security.jwt.utils;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

@@ -4,7 +4,7 @@ import com.khi.server.mainLogic.constants.UserType;
 import com.khi.server.mainLogic.dto.request.SigninRequestDto;
 import com.khi.server.mainLogic.dto.request.SignupRequestDto;
 import com.khi.server.mainLogic.entity.User;
-import com.khi.server.security.jwt.JwtProvider;
+import com.khi.server.security.jwt.utils.JwtProvider;
 import com.khi.server.mainLogic.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,7 +23,6 @@ public class UserService {
     private final UserRepository repository;
     private final JwtProvider jwtProvider;
     private final PasswordEncoder passwordEncoder;
-    private final AuthenticationManager authenticationManager;
 
     @Value("${admin.key}")
     private String adminKey;
@@ -38,11 +37,7 @@ public class UserService {
         return user;
     }
 
-    public String login(SigninRequestDto requestUser) {
-
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(requestUser.getEmail(), requestUser.getPassword())
-        );
+    public String login(Authentication authentication) {
 
         log.info("{} 권한, 로그인 성공, 토큰 발급 시작", authentication.getAuthorities());
         String token = jwtProvider.createJwt(authentication);

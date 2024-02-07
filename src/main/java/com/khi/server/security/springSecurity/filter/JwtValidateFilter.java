@@ -1,7 +1,7 @@
 package com.khi.server.security.springSecurity.filter;
 
-import com.khi.server.security.jwt.JwtUtils;
-import com.khi.server.security.springSecurity.authentication.JwtAuthenticationToken;
+import com.khi.server.security.jwt.utils.JwtUtils;
+import com.khi.server.security.jwt.authentication.JwtAuthenticationToken;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -13,6 +13,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
@@ -21,8 +22,7 @@ import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
-public class JwtValidateFilter extends OncePerRequestFilter {
-    // 스프링 시큐리티는 필터가 한 번만 호출되는 것을 보장하지 않으므로, 필터가 요청당 한번만 실행하도록 보장하는 OncePerRequestFilter 구현
+public class JwtValidateFilter extends OncePerRequestFilter { // 스프링 시큐리티는 필터가 한 번만 호출되는 것을 보장하지 않으므로, 필터가 요청당 한번만 실행하도록 보장하는 OncePerRequestFilter 구현
 
     private final JwtUtils jwtUtils;
     private final AuthenticationManager authenticationManager;
@@ -31,7 +31,6 @@ public class JwtValidateFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
         if (isSkip(request)) {
-            log.info("허가된 Url 입니다 {}", request.getRequestURI());
 
             filterChain.doFilter(request, response);
             /*
@@ -57,6 +56,7 @@ public class JwtValidateFilter extends OncePerRequestFilter {
     }
 
     private String getToken(String fullToken) {
+
         if (fullToken==null || !fullToken.startsWith("Bearer ")) {
             return null;
         }
@@ -64,8 +64,8 @@ public class JwtValidateFilter extends OncePerRequestFilter {
         return fullToken.split(" ")[1];
     }
 
-    // 허가된 Url은 토큰 검증 메서드를 거치지 않음
     private boolean isSkip(HttpServletRequest request){
+
         String[] skipUrls = {"/api/signup", "/api/signin"};
 
         if (Arrays.stream(skipUrls).anyMatch(url -> url.equals(request.getRequestURI()))) {
@@ -75,3 +75,7 @@ public class JwtValidateFilter extends OncePerRequestFilter {
         return false;
     }
 }
+
+//1. 회원가입 -> 비밀번호 필터에서 null 반환
+//2. 로그인 -> 비밀번호 필터에서 Auth 반환
+//3. 토큰 인증 -> 비밀번호 필터에서 null 반환
