@@ -32,7 +32,7 @@ public class UsernamePasswordAuthenticationProvider implements AuthenticationPro
         UserDetails user = userDetailsService.loadUserByUsername(email);
 
         if (passwordEncoder.matches(password, user.getPassword())) {
-            return new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword(), user.getAuthorities());
+            return new UsernamePasswordAuthenticationToken(user.getUsername(), null, user.getAuthorities());
 
         } else {
             throw new BadCredentialsException("비밀번호가 일치하지 않습니다");
