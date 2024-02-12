@@ -28,16 +28,26 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
+    private final UsernamePasswordAuthenticationProvider usernamePasswordAuthenticationProvider;
+    private final JwtAuthenticationProvider jwtAuthenticationProvider;
 
     private final AuthenticationEntryPointImpl authenticationEntryPointImpl;
     private final AccessDeniedHandlerImpl accessDeniedHandlerImpl;
 
-    private final AuthenticationConfiguration authenticationConfiguration;
     private final ObjectMapper objectMapper;
     private final JwtUtils jwtUtils;
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public AuthenticationManager authManager(HttpSecurity http) throws Exception {
+        return http
+                .getSharedObject(AuthenticationManagerBuilder.class)
+                .authenticationProvider(usernamePasswordAuthenticationProvider)
+                .authenticationProvider(jwtAuthenticationProvider)
+                .build();
+    }
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http, AuthenticationManager authManager) throws Exception {
 
         return http
 
@@ -62,8 +72,8 @@ public class SecurityConfig {
                         .anyRequest().authenticated())
 
                 // 필터 체인에 필터 등록 (두 번째 매개변수의 필터 전에, 첫번째 매개변수 필터 실행)
-                .addFilterBefore(new CustomUsernamePasswordAuthenticationFilter(objectMapper, authenticationConfiguration.getAuthenticationManager()), UsernamePasswordAuthenticationFilter.class)
-                .addFilterAfter(new JwtValidateFilter(jwtUtils, authenticationConfiguration.getAuthenticationManager()), CustomUsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new CustomUsernamePasswordAuthenticationFilter(objectMapper, authManager), UsernamePasswordAuthenticationFilter.class)
+                .addFilterAfter(new JwtValidateFilter(jwtUtils, authManager), CustomUsernamePasswordAuthenticationFilter.class)
                 /*
                  * formLogin()을 추가해야 UsernamePasswordAuthenticationFilter가 필터에 추가되는데, 현재는 formLogin()을 추가 안했으므로,
                  * UsernamePasswordAuthenticationFilter는 형식상의 위치를 나타냄

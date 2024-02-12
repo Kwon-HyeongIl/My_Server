@@ -33,4 +33,9 @@ public class UserController {
         String token = service.login(authentication);
         return new ResponseEntity<>(new TokenResponseDto(token), HttpStatus.OK);
     }
+
+    @PostMapping("/test")
+    public String test() {
+        return "good";
+    }
 }
