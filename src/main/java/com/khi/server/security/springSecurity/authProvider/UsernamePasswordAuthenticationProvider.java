@@ -1,6 +1,7 @@
 package com.khi.server.security.springSecurity.authProvider;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Component;
  * (예를 들어, 비밀번호로 로그인하는 경우, 지문으로 로그인 하는 경우, 인증코드로 로그인 하는 경우 등,
  * supports 메서드로 각각의 타입을 체크해서 맞는 타입의 authenticate 메서드가 호출되므로, 모든 경우의 맞춤형 인증 설계 가능)
  */
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class UsernamePasswordAuthenticationProvider implements AuthenticationProvider {
@@ -25,6 +27,8 @@ public class UsernamePasswordAuthenticationProvider implements AuthenticationPro
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+
+        log.info("A");
 
         String email = authentication.getName();
         String password = authentication.getCredentials().toString();
