@@ -37,10 +37,10 @@ public class UserService {
         return user;
     }
 
-    public String login(Authentication authentication) {
+    public String login(Authentication auth) {
 
-        log.info("{} 권한, 로그인 성공, 토큰 발급 시작", authentication.getAuthorities());
-        String token = jwtProvider.createJwt(authentication);
+        log.info("{} 권한, 로그인 성공, 토큰 발급 시작", auth.getAuthorities());
+        String token = jwtProvider.createJwt(auth);
         log.info("토큰이 정상적으로 발급되었습니다");
 
         return token;

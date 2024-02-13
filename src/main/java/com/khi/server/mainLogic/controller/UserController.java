@@ -28,9 +28,9 @@ public class UserController {
     }
 
     @PostMapping("/signin")
-    public ResponseEntity<TokenResponseDto> signin(Authentication authentication) {
+    public ResponseEntity<TokenResponseDto> signin(Authentication auth) {
 
-        String token = service.login(authentication);
+        String token = service.login(auth);
         return new ResponseEntity<>(new TokenResponseDto(token), HttpStatus.OK);
     }
 

@@ -30,16 +30,14 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
      */
 
     @Override
-    public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+    public Authentication authenticate(Authentication auth) throws AuthenticationException {
 
-        log.info("B");
-
-        if (authentication instanceof JwtAuthenticationToken) {
-            JwtAuthenticationToken jwtAuthenticationToken = (JwtAuthenticationToken) authentication;
-            String token = jwtAuthenticationToken.getToken();
+        if (auth instanceof JwtAuthenticationToken) {
+            JwtAuthenticationToken jwtAuth = (JwtAuthenticationToken) auth;
+            String token = jwtAuth.getToken();
 
             if (validateToken(token)) {
-                return new JwtAuthenticationToken(jwtAuthenticationToken.getName(), jwtAuthenticationToken.getAuthorities());
+                return new JwtAuthenticationToken(jwtAuth.getName(), jwtAuth.getAuthorities());
             }
 
             throw new DisabledException("JWT 토큰 인증 오류입니다");

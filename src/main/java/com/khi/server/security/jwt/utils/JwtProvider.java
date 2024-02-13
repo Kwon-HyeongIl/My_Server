@@ -23,14 +23,14 @@ public class JwtProvider {
     private Long expiredMs = 1000 * 60 * 60l;
 
     // Jwt 토큰 생성
-    public String createJwt(Authentication authentication) {
+    public String createJwt(Authentication auth) {
 
         // 형식상으로 있는 Collection 타입에서 하나의 권한만 가져옴
-        String authority = authentication.getAuthorities().iterator().next().getAuthority();
+        String authority = auth.getAuthorities().iterator().next().getAuthority();
 
         return Jwts
                 .builder()
-                .claim("email", authentication.getName())
+                .claim("email", auth.getName())
                 .claim("authority", authority)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + expiredMs))
