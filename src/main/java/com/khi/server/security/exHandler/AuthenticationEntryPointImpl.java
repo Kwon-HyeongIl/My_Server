@@ -1,6 +1,5 @@
-package com.khi.server.security.springSecurity.exHandler;
+package com.khi.server.security.exHandler;
 
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.core.AuthenticationException;

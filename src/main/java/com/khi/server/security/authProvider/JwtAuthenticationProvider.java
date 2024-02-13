@@ -1,6 +1,6 @@
-package com.khi.server.security.springSecurity.authProvider;
+package com.khi.server.security.authProvider;
 
-import com.khi.server.security.jwt.authentication.JwtAuthenticationToken;
+import com.khi.server.security.authentication.JwtAuthenticationToken;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.SignatureException;

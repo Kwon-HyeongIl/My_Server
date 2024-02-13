@@ -1,26 +1,22 @@
-package com.khi.server.security.springSecurity.configuration;
+package com.khi.server.security.configuration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.khi.server.security.springSecurity.authProvider.JwtAuthenticationProvider;
-import com.khi.server.security.springSecurity.authProvider.UsernamePasswordAuthenticationProvider;
-import com.khi.server.security.springSecurity.exHandler.AccessDeniedHandlerImpl;
-import com.khi.server.security.springSecurity.exHandler.AuthenticationEntryPointImpl;
-import com.khi.server.security.springSecurity.filter.CustomUsernamePasswordAuthenticationFilter;
-import com.khi.server.security.springSecurity.filter.JwtValidateFilter;
-import com.khi.server.security.jwt.utils.JwtUtils;
+import com.khi.server.security.authProvider.JwtAuthenticationProvider;
+import com.khi.server.security.authProvider.UsernamePasswordAuthenticationProvider;
+import com.khi.server.security.exHandler.AccessDeniedHandlerImpl;
+import com.khi.server.security.exHandler.AuthenticationEntryPointImpl;
+import com.khi.server.security.filter.CustomUsernamePasswordAuthenticationFilter;
+import com.khi.server.security.filter.JwtValidateFilter;
+import com.khi.server.security.utils.JwtUtils;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 

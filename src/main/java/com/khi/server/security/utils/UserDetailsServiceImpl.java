@@ -1,9 +1,9 @@
-package com.khi.server.security.springSecurity.utils;
+package com.khi.server.security.utils;
 
 import com.khi.server.mainLogic.constants.UserType;
 import com.khi.server.mainLogic.entity.User;
 import com.khi.server.mainLogic.repository.UserRepository;
-import com.khi.server.security.springSecurity.entity.UserDetailsImpl;
+import com.khi.server.security.entity.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
