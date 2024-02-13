@@ -28,6 +28,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
+
     private final UsernamePasswordAuthenticationProvider usernamePasswordAuthenticationProvider;
     private final JwtAuthenticationProvider jwtAuthenticationProvider;
 
@@ -38,7 +39,8 @@ public class SecurityConfig {
     private final JwtUtils jwtUtils;
 
     @Bean
-    public AuthenticationManager authManager(HttpSecurity http) throws Exception {
+    public AuthenticationManager authManagerProvider(HttpSecurity http) throws Exception {
+
         return http
                 .getSharedObject(AuthenticationManagerBuilder.class)
                 .authenticationProvider(usernamePasswordAuthenticationProvider)
@@ -48,6 +50,10 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http, AuthenticationManager authManager) throws Exception {
+        /*
+         * AuthenticationManager를 빈으로 등록하고 필드로 주입 받으면 의존성 문제가 생기므로,
+         * 등록한 AuthentciationManager를 빈 메서드의 매개값으로 주입 받으면 의존성 문제를 해결할 수 있음
+         */
 
         return http
 
@@ -67,8 +73,7 @@ public class SecurityConfig {
                 // 회원가입, 로그인 제외 스프링 시큐리티 적용
                 .authorizeHttpRequests(request -> request
                         .requestMatchers("/api/signup").permitAll()
-                        // 스프링 시큐리티가 SecurityContext의 Authentication에서 Authorities 값을 꺼내서 확인
-                        .requestMatchers("/api/admin/**").hasAuthority("ADMIN")
+                        .requestMatchers("/api/admin/**").hasAuthority("ADMIN") // 스프링 시큐리티가 SecurityContext의 Authentication에서 Authorities 값을 꺼내서 확인
                         .anyRequest().authenticated())
 
                 // 필터 체인에 필터 등록 (두 번째 매개변수의 필터 전에, 첫번째 매개변수 필터 실행)
