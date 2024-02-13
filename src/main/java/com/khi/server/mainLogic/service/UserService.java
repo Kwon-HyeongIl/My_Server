@@ -3,12 +3,14 @@ package com.khi.server.mainLogic.service;
 import com.khi.server.mainLogic.constants.UserType;
 import com.khi.server.mainLogic.dto.request.SignupRequestDto;
 import com.khi.server.mainLogic.entity.User;
+import com.khi.server.security.authentication.JwtAuthToken;
 import com.khi.server.security.utils.JwtTokenProvider;
 import com.khi.server.mainLogic.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -18,13 +20,12 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
     private final UserRepository repository;
-    private final JwtTokenProvider jwtTokenProvider;
     private final PasswordEncoder passwordEncoder;
 
     @Value("${admin.key}")
     private String adminKey;
 
-    public User createUser(SignupRequestDto requestUser) {
+    public User signup(SignupRequestDto requestUser) {
 
         String encodedPassword = passwordEncoder.encode(requestUser.getPassword());
         UserType role = checkRole(requestUser.getAdminKey());
@@ -34,13 +35,16 @@ public class UserService {
         return user;
     }
 
-    public String login(Authentication auth) {
+    public String signin() {
 
-        log.info("{} 권한, 로그인 성공, 토큰 발급 시작", auth.getAuthorities());
-        String token = jwtTokenProvider.createJwt(auth);
-        log.info("토큰이 정상적으로 발급되었습니다");
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
-        return token;
+        if (auth instanceof JwtAuthToken jwtAuth) {
+            return jwtAuth.getToken();
+        }
+
+        log.info("주어진 Authentication이 JwtAuthToken으로 캐스팅 할 수 없습니다");
+        throw new ClassCastException("형변환 오류입니다");
     }
 
 
@@ -49,6 +53,7 @@ public class UserService {
         if (inputAdminKey.equals(adminKey)) {
             log.info("ADMIN 인증되었습니다");
             return UserType.ADMIN;
+
         } else {
             return UserType.USER;
         }

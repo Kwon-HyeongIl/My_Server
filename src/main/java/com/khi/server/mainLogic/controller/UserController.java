@@ -21,21 +21,16 @@ public class UserController {
     private final UserService service;
 
     @PostMapping("/signup")
-    public ResponseEntity<UserResponseDto> createUser(@RequestBody @Valid SignupRequestDto requsetUser) {
+    public ResponseEntity<UserResponseDto> signup(@RequestBody @Valid SignupRequestDto requsetUser) {
 
-        User createdUser = service.createUser(requsetUser);
+        User createdUser = service.signup(requsetUser);
         return new ResponseEntity<>(new UserResponseDto(createdUser.getId()), HttpStatus.CREATED);
     }
 
     @PostMapping("/signin")
-    public ResponseEntity<TokenResponseDto> signin(Authentication auth) {
+    public ResponseEntity<TokenResponseDto> signin() {
 
-        String token = service.login(auth);
+        String token = service.signin();
         return new ResponseEntity<>(new TokenResponseDto(token), HttpStatus.OK);
-    }
-
-    @PostMapping("/test")
-    public String test() {
-        return "good";
     }
 }

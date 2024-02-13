@@ -70,7 +70,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(request -> request
                         .requestMatchers("/api/signup").permitAll()
                         .requestMatchers("/api/admin/**").hasAuthority("ADMIN")
-                        .requestMatchers("/api/user/**").hasAnyAuthority("USER", "ADMIN")
+                        .requestMatchers("/api/signin","/api/user/**").hasAnyAuthority("USER", "ADMIN")
                         .anyRequest().authenticated())
                 /*
                  * hasAuthority 메서드는 스프링 시큐리티가 SecurityContext의 Authentication에서 Authorities 값을 꺼내서 확인

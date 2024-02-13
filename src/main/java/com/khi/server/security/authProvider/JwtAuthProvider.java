@@ -32,8 +32,7 @@ public class JwtAuthProvider implements AuthenticationProvider {
     @Override
     public Authentication authenticate(Authentication auth) throws AuthenticationException {
 
-        if (auth instanceof JwtAuthToken) {
-            JwtAuthToken jwtAuth = (JwtAuthToken) auth;
+        if (auth instanceof JwtAuthToken jwtAuth) {
             String token = jwtAuth.getToken();
 
             if (validateToken(token)) {
@@ -43,8 +42,12 @@ public class JwtAuthProvider implements AuthenticationProvider {
             throw new DisabledException("JWT 토큰 인증 오류입니다");
         }
 
-        log.info("주어진 Authentication이 JwtAuthenticationToken으로 캐스팅 할 수 없습니다");
-        throw new DisabledException("인증 오류입니다"); // AuthenticationException의 하위 타입
+        log.info("주어진 Authentication이 JwtAuthToken으로 캐스팅 할 수 없습니다");
+        throw new DisabledException("인증 오류입니다");
+        /*
+         * AuthenticationException의 하위 타입
+         * 스프링 시큐리티 내부 로직이므로, 시큐리티 예외 핸들러가 예외를 캐치할 수 있도록, 시큐리티 예외를 던짐
+         */
     }
 
     @Override
