@@ -69,8 +69,12 @@ public class SecurityConfig {
                 // 회원가입, 로그인 제외 스프링 시큐리티 적용
                 .authorizeHttpRequests(request -> request
                         .requestMatchers("/api/signup").permitAll()
-                        .requestMatchers("/api/admin/**").hasAuthority("ADMIN") // 스프링 시큐리티가 SecurityContext의 Authentication에서 Authorities 값을 꺼내서 확인
-                        .anyRequest().hasAnyAuthority("USER", "ADMIN"))
+                        .requestMatchers("/api/admin/**").hasAuthority("ADMIN")
+                        .requestMatchers("/api/user/**").hasAnyAuthority("USER", "ADMIN")
+                        .anyRequest().authenticated())
+                /*
+                 * hasAuthority 메서드는 스프링 시큐리티가 SecurityContext의 Authentication에서 Authorities 값을 꺼내서 확인
+                 */
 
                 // 필터 체인에 필터 등록 (두 번째 매개변수의 필터 전에, 첫번째 매개변수 필터 실행)
                 .addFilterBefore(new CustomUsernamePasswordAuthFilter(objectMapper, authManager), UsernamePasswordAuthenticationFilter.class)
