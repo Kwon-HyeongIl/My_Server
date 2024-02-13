@@ -1,7 +1,7 @@
 package com.khi.server.security.filter;
 
 import com.khi.server.security.utils.JwtUtils;
-import com.khi.server.security.authentication.JwtAuthenticationToken;
+import com.khi.server.security.authentication.JwtAuthToken;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -38,7 +38,7 @@ public class JwtValidateFilter extends OncePerRequestFilter {
         String authority = jwtUtils.getUserAuthority(token);
 
         Authentication authentication = authenticationManager.authenticate(
-                new JwtAuthenticationToken(email, List.of(new SimpleGrantedAuthority(authority)), token)
+                new JwtAuthToken(email, List.of(new SimpleGrantedAuthority(authority)), token)
         );
 
         SecurityContextHolder.getContext().setAuthentication(authentication);

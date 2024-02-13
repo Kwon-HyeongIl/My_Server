@@ -1,6 +1,6 @@
 package com.khi.server.security.authProvider;
 
-import com.khi.server.security.authentication.JwtAuthenticationToken;
+import com.khi.server.security.authentication.JwtAuthToken;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.SignatureException;
@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @Component
-public class JwtAuthenticationProvider implements AuthenticationProvider {
+public class JwtAuthProvider implements AuthenticationProvider {
 
     @Value("${jwt.secret}")
     private String secretKey;
@@ -32,12 +32,12 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
     @Override
     public Authentication authenticate(Authentication auth) throws AuthenticationException {
 
-        if (auth instanceof JwtAuthenticationToken) {
-            JwtAuthenticationToken jwtAuth = (JwtAuthenticationToken) auth;
+        if (auth instanceof JwtAuthToken) {
+            JwtAuthToken jwtAuth = (JwtAuthToken) auth;
             String token = jwtAuth.getToken();
 
             if (validateToken(token)) {
-                return new JwtAuthenticationToken(jwtAuth.getName(), jwtAuth.getAuthorities());
+                return new JwtAuthToken(jwtAuth.getName(), jwtAuth.getAuthorities());
             }
 
             throw new DisabledException("JWT 토큰 인증 오류입니다");
@@ -50,7 +50,7 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
     @Override
     public boolean supports(Class<?> authentication) {
 
-        return JwtAuthenticationToken.class.isAssignableFrom(authentication);
+        return JwtAuthToken.class.isAssignableFrom(authentication);
         /*
          * AuthenticationManager의 AuthenticationProvider가 supports 메서드를 실행해서,
          * 전달된 authentication이 JwtAuthenticationToken의 하위 타입인지 확인하고,boolean 값 반환

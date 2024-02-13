@@ -1,11 +1,11 @@
 package com.khi.server.security.configuration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.khi.server.security.authProvider.JwtAuthenticationProvider;
-import com.khi.server.security.authProvider.UsernamePasswordAuthenticationProvider;
+import com.khi.server.security.authProvider.JwtAuthProvider;
+import com.khi.server.security.authProvider.UsernamePasswordAuthProvider;
 import com.khi.server.security.exHandler.AccessDeniedHandlerImpl;
 import com.khi.server.security.exHandler.AuthenticationEntryPointImpl;
-import com.khi.server.security.filter.CustomUsernamePasswordAuthenticationFilter;
+import com.khi.server.security.filter.CustomUsernamePasswordAuthFilter;
 import com.khi.server.security.filter.JwtValidateFilter;
 import com.khi.server.security.utils.JwtUtils;
 import lombok.RequiredArgsConstructor;
@@ -25,8 +25,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final UsernamePasswordAuthenticationProvider usernamePasswordAuthenticationProvider;
-    private final JwtAuthenticationProvider jwtAuthenticationProvider;
+    private final UsernamePasswordAuthProvider usernamePasswordAuthProvider;
+    private final JwtAuthProvider jwtAuthProvider;
 
     private final AuthenticationEntryPointImpl authenticationEntryPointImpl;
     private final AccessDeniedHandlerImpl accessDeniedHandlerImpl;
@@ -39,8 +39,8 @@ public class SecurityConfig {
 
         return http
                 .getSharedObject(AuthenticationManagerBuilder.class)
-                .authenticationProvider(usernamePasswordAuthenticationProvider)
-                .authenticationProvider(jwtAuthenticationProvider)
+                .authenticationProvider(usernamePasswordAuthProvider)
+                .authenticationProvider(jwtAuthProvider)
                 .build();
     }
 
@@ -73,8 +73,8 @@ public class SecurityConfig {
                         .anyRequest().hasAnyAuthority("USER", "ADMIN"))
 
                 // 필터 체인에 필터 등록 (두 번째 매개변수의 필터 전에, 첫번째 매개변수 필터 실행)
-                .addFilterBefore(new CustomUsernamePasswordAuthenticationFilter(objectMapper, authManager), UsernamePasswordAuthenticationFilter.class)
-                .addFilterAfter(new JwtValidateFilter(jwtUtils, authManager), CustomUsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new CustomUsernamePasswordAuthFilter(objectMapper, authManager), UsernamePasswordAuthenticationFilter.class)
+                .addFilterAfter(new JwtValidateFilter(jwtUtils, authManager), CustomUsernamePasswordAuthFilter.class)
                 /*
                  * formLogin()을 추가해야 UsernamePasswordAuthenticationFilter가 필터에 추가되는데, 현재는 formLogin()을 추가 안했으므로,
                  * UsernamePasswordAuthenticationFilter는 형식상의 위치를 나타냄

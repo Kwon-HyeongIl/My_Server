@@ -17,7 +17,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 
 @RequiredArgsConstructor
-public class CustomUsernamePasswordAuthenticationFilter extends OncePerRequestFilter {
+public class CustomUsernamePasswordAuthFilter extends OncePerRequestFilter {
     // 스프링 시큐리티는 필터가 한 번만 호출되는 것을 보장하지 않으므로, 필터가 요청당 한번만 실행하도록 보장하는 OncePerRequestFilter 구현
 
     private final ObjectMapper objectMapper;
