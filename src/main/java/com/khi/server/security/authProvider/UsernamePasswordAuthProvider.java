@@ -29,7 +29,7 @@ public class UsernamePasswordAuthProvider implements AuthenticationProvider {
     private final JwtTokenProvider jwtTokenProvider;
 
     @Override
-    public Authentication authenticate(Authentication auth) throws AuthenticationException {
+    public Authentication authenticate(Authentication auth) {
 
         String email = auth.getName();
         String password = auth.getCredentials().toString();

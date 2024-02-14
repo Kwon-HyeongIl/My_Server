@@ -7,6 +7,7 @@ import io.jsonwebtoken.security.SignatureException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -39,11 +40,11 @@ public class JwtAuthProvider implements AuthenticationProvider {
                 return new JwtAuthToken(jwtAuth.getName(), jwtAuth.getAuthorities());
             }
 
-            throw new DisabledException("JWT 토큰 인증 오류입니다");
+            throw new AuthenticationServiceException("JWT 토큰 인증 오류입니다");
         }
 
         log.info("주어진 Authentication이 JwtAuthToken으로 캐스팅 할 수 없습니다");
-        throw new DisabledException("인증 오류입니다");
+        throw new AuthenticationServiceException("인증 오류 입니다");
         /*
          * AuthenticationException의 하위 타입
          * 스프링 시큐리티 내부 로직이므로, 시큐리티 예외 핸들러가 예외를 캐치할 수 있도록, 시큐리티 예외를 던짐

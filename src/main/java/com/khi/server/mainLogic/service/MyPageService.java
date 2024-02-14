@@ -5,6 +5,7 @@ import com.khi.server.mainLogic.entity.MyPage;
 import com.khi.server.mainLogic.entity.User;
 import com.khi.server.mainLogic.repository.MyPageRepository;
 import com.khi.server.mainLogic.repository.UserRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -39,6 +40,6 @@ public class MyPageService {
 
         // 현재 실행중인 스레드에 대한 보안 컨텍스트에서 인증된 사용자의 정보를 가져옴
         String userEmail = SecurityContextHolder.getContext().getAuthentication().getName();
-        return userRepository.findUserByEmail(userEmail).orElseThrow(() -> new UsernameNotFoundException("토큰 인증을 받은 사용자가 존재하지 않습니다"));
+        return userRepository.findUserByEmail(userEmail).orElseThrow(() -> new EntityNotFoundException("토큰 인증을 받은 사용자가 존재하지 않습니다"));
     }
 }
