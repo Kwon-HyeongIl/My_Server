@@ -18,7 +18,10 @@ import java.io.IOException;
 
 @RequiredArgsConstructor
 public class CustomUsernamePasswordAuthFilter extends OncePerRequestFilter {
-    // 스프링 시큐리티는 필터가 한 번만 호출되는 것을 보장하지 않으므로, 필터가 요청당 한번만 실행하도록 보장하는 OncePerRequestFilter 구현
+    /*
+     * UsernamePasswordAuthenticationFilter와 같은 필터는 필터 체인을 받아서 doFilter 메서드로 request, response를 다음 필터로 전달하지 못하므로,
+     * 다음 필터에서 request, response 값을 사용하지 못하므로 OncePerRequestFilter를 사용하는게 좋음
+     */
 
     private final ObjectMapper objectMapper;
     private final AuthenticationManager authenticationManager;
