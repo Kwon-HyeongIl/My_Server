@@ -1,7 +1,9 @@
 package com.khi.server.aop;
 
 import lombok.extern.slf4j.Slf4j;
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
@@ -17,15 +19,25 @@ public class MyAspect {
      */
 
     @Around("execution(* com.khi.server..*(..))")
-    public Object doLog(ProceedingJoinPoint joinPoint) throws Throwable {
+    public Object classMethodLog(ProceedingJoinPoint joinPoint) throws Throwable {
 
         String[] fullLogArr = String.valueOf(joinPoint.getSignature()).split("\\.");
         String className = fullLogArr[fullLogArr.length-2];
         String methodName = fullLogArr[fullLogArr.length-1].split("\\(")[0];
 
-        log.info("[MyLog] " + "(" + className + ") " + methodName + " 메서드 호출");
+        log.info("[ClassMethodLog] " + "(" + className + ") " + methodName + " 메서드 호출");
 
         return joinPoint.proceed();
+    }
+
+    @AfterThrowing(value = "execution(* com.khi.server..*(..))", throwing = "e")
+    public void exLog(JoinPoint joinPoint, Exception e) {
+
+        String[] fullLogArr = String.valueOf(joinPoint.getSignature()).split("\\.");
+        String className = fullLogArr[fullLogArr.length-2];
+        String methodName = fullLogArr[fullLogArr.length-1].split("\\(")[0];
+
+        log.info("[ExLog] " + "(" + className + ") " + methodName + " 메서드에서 예외 발생, 예외 메시지: {}", e.getMessage());
     }
 }
 
