@@ -31,7 +31,7 @@ public class JwtAuthProvider implements AuthenticationProvider {
      */
 
     @Override
-    public Authentication authenticate(Authentication auth) throws AuthenticationException {
+    public Authentication authenticate(Authentication auth) {
 
         if (auth instanceof JwtAuthToken jwtAuth) {
             String token = jwtAuth.getToken();
