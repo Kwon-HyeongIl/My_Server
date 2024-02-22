@@ -43,7 +43,7 @@ public class CustomUsernamePasswordAuthFilter extends OncePerRequestFilter {
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        } catch (IOException e) {
+        } catch (IOException e) { // ObjectMapper에서 발생하는 예외 캐치
             throw new AuthenticationServiceException("인증 중 오류 발생", e);
         }
 
