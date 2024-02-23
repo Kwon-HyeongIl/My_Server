@@ -13,7 +13,9 @@ import java.io.IOException;
  * 인가 예외 처리 클래스
  * 스프링 시큐리티 필터체인이나 인증/인가 과정 중에 발생하는 AccessDeniedException 예외 등을 캐치
  * AccessDeniedException 타입의 예외를 캐치해서 프로그램을 중단되지 않도록 하는 역할을 수행
- * 직접 일으킨 예외의 메시지를 응답에 반환하려면 @ExceptionHandler 사용
+ *
+ * AccessDeniedHandler 기반 예외는 @RestControllerAdvice 보다
+ * AccessDeniedHandlerImpl 에서 더 우선적으로 실행 됨
  */
 @Component
 public class AccessDeniedHandlerImpl implements AccessDeniedHandler {
