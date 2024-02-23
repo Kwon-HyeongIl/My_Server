@@ -23,14 +23,14 @@ public class UserController {
     @PostMapping("/signup")
     public ResponseEntity<UserResponseDto> signup(@RequestBody @Valid SignupRequestDto requsetUser) {
 
-        User createdUser = service.signup(requsetUser);
-        return new ResponseEntity<>(new UserResponseDto(createdUser.getId()), HttpStatus.CREATED);
+        UserResponseDto userDto = service.signup(requsetUser);
+        return new ResponseEntity<>(userDto, HttpStatus.CREATED);
     }
 
     @PostMapping("/signin")
     public ResponseEntity<TokenResponseDto> signin() {
 
-        String token = service.signin();
-        return new ResponseEntity<>(new TokenResponseDto(token), HttpStatus.OK);
+        TokenResponseDto tokenDto = service.signin();
+        return new ResponseEntity<>(tokenDto, HttpStatus.OK);
     }
 }

@@ -2,6 +2,8 @@ package com.khi.server.mainLogic.service;
 
 import com.khi.server.mainLogic.constants.UserType;
 import com.khi.server.mainLogic.dto.request.SignupRequestDto;
+import com.khi.server.mainLogic.dto.response.TokenResponseDto;
+import com.khi.server.mainLogic.dto.response.UserResponseDto;
 import com.khi.server.mainLogic.entity.User;
 import com.khi.server.security.authentication.JwtAuthToken;
 import com.khi.server.security.utils.JwtTokenProvider;
@@ -25,22 +27,22 @@ public class UserService {
     @Value("${admin.key}")
     private String adminKey;
 
-    public User signup(SignupRequestDto requestUser) {
+    public UserResponseDto signup(SignupRequestDto requestUser) {
 
         String encodedPassword = passwordEncoder.encode(requestUser.getPassword());
         UserType role = checkRole(requestUser.getAdminKey());
         User user = new User(requestUser.getUsername(), requestUser.getEmail(), encodedPassword, role);
         repository.save(user);
 
-        return user;
+        return new UserResponseDto(user.getId());
     }
 
-    public String signin() {
+    public TokenResponseDto signin() {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
         if (auth instanceof JwtAuthToken jwtAuth) {
-            return jwtAuth.getToken();
+            return new TokenResponseDto(jwtAuth.getToken());
         }
 
         log.info("주어진 Authentication이 JwtAuthToken으로 캐스팅 할 수 없습니다");

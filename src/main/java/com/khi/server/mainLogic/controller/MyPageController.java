@@ -25,8 +25,8 @@ public class MyPageController {
     @PostMapping("/mypage/create")
     public ResponseEntity<UserResponseDto> createMyPage(@RequestBody @Valid MyPageCreateRequestDto request) {
 
-        User user = service.createMyPage(request);
-        return new ResponseEntity<>(new UserResponseDto(user.getId()), HttpStatus.CREATED);
+        UserResponseDto userDto = service.createMyPage(request);
+        return new ResponseEntity<>(userDto, HttpStatus.CREATED);
     }
 
     @GetMapping("/mypage/get")
@@ -39,7 +39,7 @@ public class MyPageController {
     @PostMapping("/mypage/image")
     public ResponseEntity<UserResponseDto> setImage(@RequestParam("image") MultipartFile file) throws IOException {
 
-        User user = service.setImage(file);
-        return new ResponseEntity<>(new UserResponseDto(user.getId()), HttpStatus.ACCEPTED);
+        UserResponseDto userDto = service.setImage(file);
+        return new ResponseEntity<>(userDto, HttpStatus.ACCEPTED);
     }
 }

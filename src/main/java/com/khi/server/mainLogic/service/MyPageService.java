@@ -2,6 +2,7 @@ package com.khi.server.mainLogic.service;
 
 import com.khi.server.mainLogic.dto.request.MyPageCreateRequestDto;
 import com.khi.server.mainLogic.dto.response.MyPageResponseDto;
+import com.khi.server.mainLogic.dto.response.UserResponseDto;
 import com.khi.server.mainLogic.entity.Image;
 import com.khi.server.mainLogic.entity.MyPage;
 import com.khi.server.mainLogic.entity.User;
@@ -28,7 +29,7 @@ public class MyPageService {
     private final UserRepository userRepository;
     private final ImageRepository imageRepository;
 
-    public User createMyPage(MyPageCreateRequestDto request) {
+    public UserResponseDto createMyPage(MyPageCreateRequestDto request) {
 
         MyPage myPage = new MyPage(request.getContent());
         myPageRepository.save(myPage);
@@ -36,7 +37,7 @@ public class MyPageService {
         User user = getAuthUser();
         user.setMyPage(myPage);
 
-        return user;
+        return new UserResponseDto(user.getId());
     }
 
     public MyPageResponseDto getMyPage() {
@@ -47,7 +48,7 @@ public class MyPageService {
         return new MyPageResponseDto(encodedImageData, myPage.getContent(), myPage.getTeamName());
     }
 
-    public User setImage(MultipartFile file) throws IOException {
+    public UserResponseDto setImage(MultipartFile file) throws IOException {
 
         String fileName = file.getOriginalFilename();
         String fileType = file.getContentType();
@@ -60,7 +61,7 @@ public class MyPageService {
         imageRepository.save(image);
         myPage.setImage(image);
 
-        return user;
+        return new UserResponseDto(user.getId());
     }
 
     private User getAuthUser() {
