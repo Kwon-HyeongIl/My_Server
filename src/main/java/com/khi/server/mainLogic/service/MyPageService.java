@@ -1,8 +1,10 @@
 package com.khi.server.mainLogic.service;
 
 import com.khi.server.mainLogic.dto.request.MyPageCreateRequestDto;
+import com.khi.server.mainLogic.entity.Image;
 import com.khi.server.mainLogic.entity.MyPage;
 import com.khi.server.mainLogic.entity.User;
+import com.khi.server.mainLogic.repository.ImageRepository;
 import com.khi.server.mainLogic.repository.MyPageRepository;
 import com.khi.server.mainLogic.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -11,6 +13,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @Service
 @RequiredArgsConstructor
@@ -19,6 +24,7 @@ public class MyPageService {
 
     private final MyPageRepository myPageRepository;
     private final UserRepository userRepository;
+    private final ImageRepository imageRepository;
 
     public User createMyPage(MyPageCreateRequestDto request) {
 
@@ -34,6 +40,22 @@ public class MyPageService {
     public MyPage getMyPage() {
 
         return getAuthUser().getMyPage();
+    }
+
+    public User setImage(MultipartFile file) throws IOException {
+
+        String fileName = file.getOriginalFilename();
+        String fileType = file.getContentType();
+        byte[] data = file.getBytes();
+
+        User user = getAuthUser();
+        MyPage myPage = user.getMyPage();
+        Image image = new Image(fileName, fileType, data);
+
+        imageRepository.save(image);
+        myPage.setImage(image);
+
+        return user;
     }
 
     private User getAuthUser() {

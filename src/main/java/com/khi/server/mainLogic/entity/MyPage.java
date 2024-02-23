@@ -1,8 +1,6 @@
 package com.khi.server.mainLogic.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,6 +14,10 @@ public class MyPage {
     @GeneratedValue
     private Long id;
 
+    @OneToOne
+    @JoinColumn(name = "IMAGE_ID")
+    private Image image;
+
     private String content;
 
     private String teamName;
@@ -26,5 +28,9 @@ public class MyPage {
 
     public void setTeamName(String teamName) {
         this.teamName = teamName;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
     }
 }
