@@ -32,8 +32,8 @@ public class MyPageController {
     @GetMapping("/mypage/get")
     public ResponseEntity<MyPageResponseDto> getMyPage() {
 
-        MyPage myPage = service.getMyPage();
-        return new ResponseEntity<>(new MyPageResponseDto(myPage.getContent(), myPage.getTeamName()), HttpStatus.OK);
+        MyPageResponseDto myPage = service.getMyPage();
+        return new ResponseEntity<>(myPage, HttpStatus.OK);
     }
 
     @PostMapping("/mypage/image")

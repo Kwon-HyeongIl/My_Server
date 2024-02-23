@@ -1,6 +1,7 @@
 package com.khi.server.mainLogic.service;
 
 import com.khi.server.mainLogic.dto.request.MyPageCreateRequestDto;
+import com.khi.server.mainLogic.dto.response.MyPageResponseDto;
 import com.khi.server.mainLogic.entity.Image;
 import com.khi.server.mainLogic.entity.MyPage;
 import com.khi.server.mainLogic.entity.User;
@@ -16,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Base64;
 
 @Service
 @RequiredArgsConstructor
@@ -37,9 +39,12 @@ public class MyPageService {
         return user;
     }
 
-    public MyPage getMyPage() {
+    public MyPageResponseDto getMyPage() {
 
-        return getAuthUser().getMyPage();
+        MyPage myPage = getAuthUser().getMyPage();
+        String encodedImageData = Base64.getEncoder().encodeToString(myPage.getImage().getData());
+
+        return new MyPageResponseDto(encodedImageData, myPage.getContent(), myPage.getTeamName());
     }
 
     public User setImage(MultipartFile file) throws IOException {
