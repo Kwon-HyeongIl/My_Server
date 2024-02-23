@@ -25,7 +25,7 @@ public class MyAspect {
         String className = fullLogArr[fullLogArr.length-2];
         String methodName = fullLogArr[fullLogArr.length-1].split("\\(")[0];
 
-        log.info("[ClassMethodLog] " + "(" + className + ") " + methodName + " 메서드 호출");
+        log.info("[MethodLog] " + "(" + className + ") " + methodName + " 메서드 호출");
 
         return joinPoint.proceed();
     }
