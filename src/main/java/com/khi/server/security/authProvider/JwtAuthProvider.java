@@ -1,6 +1,6 @@
 package com.khi.server.security.authProvider;
 
-import com.khi.server.security.authentication.JwtAuthToken;
+import com.khi.server.security.auth.JwtAuthToken;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.SignatureException;
@@ -8,9 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.AuthenticationServiceException;
-import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Component;
 
 /**
@@ -37,6 +35,7 @@ public class JwtAuthProvider implements AuthenticationProvider {
             String token = jwtAuth.getToken();
 
             if (validateToken(token)) {
+                log.info("JWT 토큰 검증을 성공하였습니다");
                 return new JwtAuthToken(jwtAuth.getName(), jwtAuth.getAuthorities());
             }
 

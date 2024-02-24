@@ -1,4 +1,4 @@
-package com.khi.server.security.configuration;
+package com.khi.server.security.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

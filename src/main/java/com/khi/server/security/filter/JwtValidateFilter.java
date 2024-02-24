@@ -1,12 +1,13 @@
 package com.khi.server.security.filter;
 
 import com.khi.server.security.utils.JwtUtils;
-import com.khi.server.security.authentication.JwtAuthToken;
+import com.khi.server.security.auth.JwtAuthToken;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;

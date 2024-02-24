@@ -1,4 +1,4 @@
-package com.khi.server.security.configuration;
+package com.khi.server.security.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.khi.server.security.authProvider.JwtAuthProvider;
@@ -56,6 +56,7 @@ public class SecurityConfig {
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(AbstractHttpConfigurer::disable)
+                .formLogin(AbstractHttpConfigurer::disable)
 
                 // 세션을 사용하지 않기 때문에 무상태로 설정
                 .sessionManagement(management -> management

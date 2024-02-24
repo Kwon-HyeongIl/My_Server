@@ -1,6 +1,6 @@
 package com.khi.server.security.authProvider;
 
-import com.khi.server.security.authentication.JwtAuthToken;
+import com.khi.server.security.auth.JwtAuthToken;
 import com.khi.server.security.utils.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -8,7 +8,6 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -37,6 +36,7 @@ public class UsernamePasswordAuthProvider implements AuthenticationProvider {
         UserDetails user = userDetailsService.loadUserByUsername(email);
 
         if (passwordEncoder.matches(password, user.getPassword())) {
+            log.info("로그인을 통과하였습니다");
             String token = jwtTokenProvider.createJwt(new UsernamePasswordAuthenticationToken(user.getUsername(), null, user.getAuthorities()));
             log.info("JWT 토큰이 발급되었습니다");
 

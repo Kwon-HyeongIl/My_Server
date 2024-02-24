@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
 import java.io.IOException;
 
@@ -42,6 +43,14 @@ public class ApiExceptionController {
 
         String defaultMessage = "defalut message: " + e.getMessage().split("default message")[2];
         return new ResponseEntity<>(new ErrorResultResponseDto("IO Exception", defaultMessage), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    // MultipartFile 제한 용량 초과 예외 캐치
+    @ExceptionHandler(MaxUploadSizeExceededException.class)
+    public ResponseEntity<ErrorResultResponseDto> maxSizeExHandler(MaxUploadSizeExceededException e) {
+
+        String defaultMessage = "defalut message: " + e.getMessage().split("default message")[2];
+        return new ResponseEntity<>(new ErrorResultResponseDto("MaxUploadSizeExceeded Exception", defaultMessage), HttpStatus.PAYLOAD_TOO_LARGE);
     }
 
     // 나머지 예외를 모두 캐치
