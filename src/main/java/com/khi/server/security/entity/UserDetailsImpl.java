@@ -1,4 +1,4 @@
-package com.khi.server.security.userDetails;
+package com.khi.server.security.entity;
 
 import com.khi.server.mainLogic.entity.User;
 import lombok.RequiredArgsConstructor;

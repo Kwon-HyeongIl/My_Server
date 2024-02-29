@@ -7,6 +7,7 @@ import com.khi.server.security.exHandler.AccessDeniedHandlerImpl;
 import com.khi.server.security.exHandler.AuthenticationEntryPointImpl;
 import com.khi.server.security.filter.CustomUsernamePasswordAuthFilter;
 import com.khi.server.security.filter.JwtValidateFilter;
+import com.khi.server.security.service.Oauth2UserServiceImpl;
 import com.khi.server.security.utils.JwtUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -16,6 +17,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.oauth2.client.OAuth2LoginConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -33,6 +35,8 @@ public class SecurityConfig {
 
     private final ObjectMapper objectMapper;
     private final JwtUtils jwtUtils;
+
+    private final Oauth2UserServiceImpl oauth2UserServiceImpl;
 
     @Bean
     public AuthenticationManager authManagerProvider(HttpSecurity http) throws Exception {
@@ -67,11 +71,16 @@ public class SecurityConfig {
                         .authenticationEntryPoint(authenticationEntryPointImpl)
                         .accessDeniedHandler(accessDeniedHandlerImpl))
 
+                // Oauth2
+                .oauth2Login(oauth2 -> oauth2
+                        .userInfoEndpoint(userInfoEndpointConfig -> userInfoEndpointConfig
+                                .userService(oauth2UserServiceImpl)))
+
                 // 회원가입, 로그인 제외 스프링 시큐리티 적용
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers("/api/signup").permitAll()
+                        .requestMatchers("/api/basic/signup").permitAll()
                         .requestMatchers("/api/admin/**").hasAuthority("ADMIN")
-                        .requestMatchers("/api/signin","/api/user/**").hasAnyAuthority("USER", "ADMIN")
+                        .requestMatchers("/api/basic/signin","/api/user/**").hasAnyAuthority("USER", "ADMIN")
                         .anyRequest().authenticated())
                 /*
                  * hasAuthority 메서드는 스프링 시큐리티가 SecurityContext의 Authentication에서 Authorities 값을 꺼내서 확인

@@ -38,4 +38,5 @@ out/
 
 ### Security ###
 application.yml
+application.properties
 root-context.xml

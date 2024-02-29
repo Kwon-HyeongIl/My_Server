@@ -53,7 +53,7 @@ public class CustomUsernamePasswordAuthFilter extends OncePerRequestFilter {
 
     private boolean isSkip(HttpServletRequest request) {
 
-        if (!request.getRequestURI().equals("/api/signin")) {
+        if (!request.getRequestURI().equals("/api/basic/signin")) {
             return true;
         }
 

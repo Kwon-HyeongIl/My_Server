@@ -1,22 +1,19 @@
 package com.khi.server.mainLogic.controller;
 
-import com.khi.server.mainLogic.dto.request.SigninRequestDto;
 import com.khi.server.mainLogic.dto.request.SignupRequestDto;
 import com.khi.server.mainLogic.dto.response.TokenResponseDto;
 import com.khi.server.mainLogic.dto.response.UserResponseDto;
-import com.khi.server.mainLogic.entity.User;
 import com.khi.server.mainLogic.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api")
-public class UserController {
+@RequestMapping("/api/basic")
+public class BasicUserController {
 
     private final UserService service;
 
