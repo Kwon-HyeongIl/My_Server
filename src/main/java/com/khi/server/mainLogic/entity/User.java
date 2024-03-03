@@ -14,12 +14,15 @@ import lombok.NoArgsConstructor;
 public class User {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotEmpty
     @Column(length = 10)
     private String username;
+
+    // Oauth2 용도
+    private String name; // 나중에 베이직 회원가입에도 이 필드 추가 (상황에 따라)
 
     @NotEmpty
     @Email
@@ -44,6 +47,14 @@ public class User {
         this.email = userId;
         this.password = password;
         this.authority = authority;
+    }
+
+    // Oauth2 용도
+    public User(String username, String name, UserType authority, String email) {
+        this.username = username;
+        this.name = name;
+        this.authority = authority;
+        this.email = email;
     }
 
     public void setMyPage(MyPage myPage) {

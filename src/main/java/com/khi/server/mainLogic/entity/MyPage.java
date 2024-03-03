@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 public class MyPage {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @OneToOne

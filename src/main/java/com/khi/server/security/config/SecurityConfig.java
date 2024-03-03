@@ -30,13 +30,13 @@ public class SecurityConfig {
     private final UsernamePasswordAuthProvider usernamePasswordAuthProvider;
     private final JwtAuthProvider jwtAuthProvider;
 
-    private final AuthenticationEntryPointImpl authenticationEntryPointImpl;
-    private final AccessDeniedHandlerImpl accessDeniedHandlerImpl;
+    private final AuthenticationEntryPointImpl authenticationEntryPoint;
+    private final AccessDeniedHandlerImpl accessDeniedHandler;
 
     private final ObjectMapper objectMapper;
     private final JwtUtils jwtUtils;
 
-    private final Oauth2UserServiceImpl oauth2UserServiceImpl;
+    private final Oauth2UserServiceImpl oauth2UserService;
 
     @Bean
     public AuthenticationManager authManagerProvider(HttpSecurity http) throws Exception {
@@ -68,13 +68,13 @@ public class SecurityConfig {
 
                 // 인증, 인가 예외 처리 클래스 등록
                 .exceptionHandling(exHandling -> exHandling
-                        .authenticationEntryPoint(authenticationEntryPointImpl)
-                        .accessDeniedHandler(accessDeniedHandlerImpl))
+                        .authenticationEntryPoint(authenticationEntryPoint)
+                        .accessDeniedHandler(accessDeniedHandler))
 
                 // Oauth2
                 .oauth2Login(oauth2 -> oauth2
                         .userInfoEndpoint(userInfoEndpointConfig -> userInfoEndpointConfig
-                                .userService(oauth2UserServiceImpl)))
+                                .userService(oauth2UserService)))
 
                 // 회원가입, 로그인 제외 스프링 시큐리티 적용
                 .authorizeHttpRequests(request -> request

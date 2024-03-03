@@ -27,7 +27,7 @@ public class Oauth2UserResponseDto implements OAuth2User {
         authorities.add(new GrantedAuthority() {
             @Override
             public String getAuthority() {
-                return userDto.getRole();
+                return userDto.getAuthority().name();
             }
         });
 

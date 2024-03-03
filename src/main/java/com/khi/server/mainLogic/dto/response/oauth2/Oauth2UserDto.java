@@ -1,5 +1,6 @@
 package com.khi.server.mainLogic.dto.response.oauth2;
 
+import com.khi.server.mainLogic.constants.UserType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,7 +9,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Oauth2UserDto {
 
-    private String role;
-    private String name;
     private String username;
+    private String name;
+    private UserType authority;
 }

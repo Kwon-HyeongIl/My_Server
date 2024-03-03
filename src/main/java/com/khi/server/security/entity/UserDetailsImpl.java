@@ -1,6 +1,7 @@
 package com.khi.server.security.entity;
 
 import com.khi.server.mainLogic.entity.User;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
