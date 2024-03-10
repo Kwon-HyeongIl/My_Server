@@ -3,8 +3,9 @@ package com.khi.server.security.config;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.khi.server.security.authProvider.JwtAuthProvider;
 import com.khi.server.security.authProvider.UsernamePasswordAuthProvider;
-import com.khi.server.security.exHandler.AccessDeniedHandlerImpl;
-import com.khi.server.security.exHandler.AuthenticationEntryPointImpl;
+import com.khi.server.security.handler.CustomSuccessHandler;
+import com.khi.server.security.handler.securityExHandler.AccessDeniedHandlerImpl;
+import com.khi.server.security.handler.securityExHandler.AuthenticationEntryPointImpl;
 import com.khi.server.security.filter.CustomUsernamePasswordAuthFilter;
 import com.khi.server.security.filter.JwtValidateFilter;
 import com.khi.server.security.service.Oauth2UserServiceImpl;
@@ -17,7 +18,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.config.annotation.web.configurers.oauth2.client.OAuth2LoginConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -37,6 +37,7 @@ public class SecurityConfig {
     private final JwtUtils jwtUtils;
 
     private final Oauth2UserServiceImpl oauth2UserService;
+    private final CustomSuccessHandler customSuccessHandler;
 
     @Bean
     public AuthenticationManager authManagerProvider(HttpSecurity http) throws Exception {
@@ -74,7 +75,9 @@ public class SecurityConfig {
                 // Oauth2
                 .oauth2Login(oauth2 -> oauth2
                         .userInfoEndpoint(userInfoEndpointConfig -> userInfoEndpointConfig
-                                .userService(oauth2UserService)))
+                                .userService(oauth2UserService))
+                        .successHandler(customSuccessHandler)
+                )
 
                 // 회원가입, 로그인 제외 스프링 시큐리티 적용
                 .authorizeHttpRequests(request -> request

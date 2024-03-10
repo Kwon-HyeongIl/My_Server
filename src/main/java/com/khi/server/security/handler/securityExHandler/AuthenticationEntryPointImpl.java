@@ -1,4 +1,4 @@
-package com.khi.server.security.exHandler;
+package com.khi.server.security.handler.securityExHandler;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
