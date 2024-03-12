@@ -43,7 +43,7 @@ public class Oauth2UserServiceImpl extends DefaultOAuth2UserService {
 
         // 유저 데이터가 존재하는 경우
         try {
-            UserDetailsImpl userDetails = (UserDetailsImpl) userDetailsService.loadUserByUsername(username); // UsernameNotFoundException 발생
+            UserDetailsImpl userDetails = (UserDetailsImpl) userDetailsService.loadUserByUsername(username); // 유저가 없을 경우 UsernameNotFoundException 발생
             // 유저 데이터를 업데이트 하는 기능 추후 추가
 
             Oauth2UserDto userDto = new Oauth2UserDto(username, oauth2Response.getName(), UserType.USER);
