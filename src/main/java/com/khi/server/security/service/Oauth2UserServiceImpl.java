@@ -6,14 +6,15 @@ import com.khi.server.mainLogic.entity.User;
 import com.khi.server.mainLogic.repository.UserRepository;
 import com.khi.server.security.entity.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class Oauth2UserServiceImpl extends DefaultOAuth2UserService {
@@ -23,6 +24,8 @@ public class Oauth2UserServiceImpl extends DefaultOAuth2UserService {
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
+
+        log.info("OAuth2 서비스 클래스 실행");
 
         OAuth2User user = super.loadUser(userRequest);
 

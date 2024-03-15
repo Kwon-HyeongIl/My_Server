@@ -25,6 +25,8 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
 
+        log.info("successHandler 실행");
+
         Oauth2UserResponseDto oauth2User = (Oauth2UserResponseDto) authentication.getPrincipal();
 
         String token = jwtTokenProvider.createJwt(new UsernamePasswordAuthenticationToken(oauth2User.getUserName(), null, oauth2User.getAuthorities()));

@@ -104,7 +104,7 @@ public class SecurityConfig {
 
                 // 회원가입, 로그인 제외 스프링 시큐리티 적용
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers("/api/basic/signup").permitAll()
+                        .requestMatchers("/api/basic/signup", "/api/oauth2/**", "/", "/index.html").permitAll()
                         .requestMatchers("/api/admin/**").hasAuthority("ADMIN")
                         .requestMatchers("/api/basic/signin","/api/user/**").hasAnyAuthority("USER", "ADMIN")
                         .anyRequest().authenticated())
