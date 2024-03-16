@@ -37,7 +37,7 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
          * 쿠키를 사용하는 이유:
          * 프론트단에서 anxios나 fetch와 같은 API 클라이언트가 아닌, 하이퍼링크 location.href로 요청을 보내기 때문
          */
-//        response.sendRedirect("http://localhost:8080/");
+        response.sendRedirect("http://localhost:3000/");
     }
 
     private Cookie createCookie(String key, String token) {

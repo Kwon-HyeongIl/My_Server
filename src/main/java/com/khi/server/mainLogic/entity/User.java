@@ -17,18 +17,18 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotEmpty
-    @Column(length = 10)
+//    @NotEmpty
+//    @Column(length = 10)
     private String username;
 
     // Oauth2 용도
     private String name; // 나중에 베이직 회원가입에도 이 필드 추가 (상황에 따라)
 
-    @NotEmpty
+//    @NotEmpty
     @Email
     private String email;
 
-    @NotEmpty
+//    @NotEmpty
     private String password;
 
     @OneToOne

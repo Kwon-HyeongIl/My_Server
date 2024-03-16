@@ -4,6 +4,7 @@ import com.khi.server.security.utils.JwtUtils;
 import com.khi.server.security.auth.JwtAuthToken;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -34,7 +35,8 @@ public class JwtValidateFilter extends OncePerRequestFilter {
             return;
         }
 
-        String token = getToken(request.getHeader(HttpHeaders.AUTHORIZATION));
+        String token = getToken(request);
+
         String email = jwtUtils.getUserEmail(token);
         String authority = jwtUtils.getUserAuthority(token);
 
@@ -47,13 +49,27 @@ public class JwtValidateFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
-    private String getToken(String fullToken) {
 
-        if (fullToken==null || !fullToken.startsWith("Bearer ")) {
-            return null;
+    private String getToken(HttpServletRequest request) {
+
+        String token = null;
+
+        // Header에 담긴 토큰 추출 (일반 로그인 방식)
+        String fullToken = request.getHeader(HttpHeaders.AUTHORIZATION);
+        if (fullToken!=null && fullToken.startsWith("Bearer ")) {
+            token = fullToken.split(" ")[1];
         }
 
-        return fullToken.split(" ")[1];
+        // Cookie에 담긴 토큰 추출 (OAuth2 소셜 로그인 방식)
+        if (token == null) {
+            for (Cookie cookie : request.getCookies()) {
+                if (cookie.getName().equals("Authorization")) {
+                    token = cookie.getValue();
+                }
+            }
+        }
+
+        return token;
     }
 
     private boolean isSkip(HttpServletRequest request){
