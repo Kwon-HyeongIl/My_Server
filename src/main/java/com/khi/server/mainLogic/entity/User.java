@@ -17,14 +17,13 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-//    @NotEmpty
-//    @Column(length = 10)
+    @NotEmpty
+    @Column(length = 10)
     private String username;
 
-    // Oauth2 용도
-    private String name; // 나중에 베이직 회원가입에도 이 필드 추가 (상황에 따라)
+    private String oauth2Key;
 
-//    @NotEmpty
+    @NotEmpty
     @Email
     private String email;
 
@@ -50,9 +49,9 @@ public class User {
     }
 
     // Oauth2 용도
-    public User(String username, String name, UserType authority, String email) {
+    public User(String username, String oauth2Key, UserType authority, String email) {
         this.username = username;
-        this.name = name;
+        this.oauth2Key = oauth2Key;
         this.authority = authority;
         this.email = email;
     }

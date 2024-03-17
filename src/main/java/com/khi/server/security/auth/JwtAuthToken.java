@@ -9,7 +9,7 @@ import java.util.Collection;
 @Getter
 public class JwtAuthToken extends AbstractAuthenticationToken {
 
-    private final Object principal;
+    private final Object principal; // email 값
     private String token;
 
     // SecurityContext 저장용 생성자

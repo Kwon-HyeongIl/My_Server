@@ -1,6 +1,7 @@
 package com.khi.server.mainLogic.dto.response.oauth2;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
@@ -15,7 +16,6 @@ public class Oauth2UserResponseDto implements OAuth2User {
 
     @Override
     public Map<String, Object> getAttributes() {
-
         return null;
     }
 
@@ -36,12 +36,14 @@ public class Oauth2UserResponseDto implements OAuth2User {
 
     @Override
     public String getName() {
-
-        return userDto.getName();
+        return userDto.getUsername();
     }
 
-    public String getUserName() {
+    public String getOauth2Key() {
+        return userDto.getOauth2Key();
+    }
 
-        return userDto.getUsername();
+    public String getEmail() {
+        return userDto.getEmail();
     }
 }
