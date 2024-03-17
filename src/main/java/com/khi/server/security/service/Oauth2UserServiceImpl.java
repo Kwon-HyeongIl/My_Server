@@ -28,7 +28,7 @@ public class Oauth2UserServiceImpl extends DefaultOAuth2UserService {
         OAuth2User user = super.loadUser(userRequest);
 
         String registrationId = userRequest.getClientRegistration().getRegistrationId();
-        Oauth2ResponseDto oauth2Response = null;
+        Oauth2ResponseDto oauth2Response;
 
         if (registrationId.equals("google")) {
             oauth2Response = new GoogleResponseDto(user.getAttributes());
@@ -41,22 +41,33 @@ public class Oauth2UserServiceImpl extends DefaultOAuth2UserService {
         }
 
         String oauth2Key = oauth2Response.getProvider() + " " + oauth2Response.getProviderId();
+        String name = oauth2Response.getName(); // 소셜 로그인 사용자 "실명"
+        String email = oauth2Response.getEmail(); // 소셜 로그인 사용자 "이메일"
 
         // 유저 데이터가 존재하는 경우
         try {
             User findUser = userRepository.findUserByOauth2Key(oauth2Key).orElseThrow(() -> new UsernameNotFoundException("OAuth2 키와 일치하는 사용자가 없습니다"));
             // 유저 데이터를 업데이트 하는 기능 추후 추가
 
-            Oauth2UserDto userDto = new Oauth2UserDto(oauth2Response.getName(), oauth2Key, oauth2Response.getEmail(), UserType.USER);
+            Oauth2UserDto userDto = new Oauth2UserDto(name, oauth2Key, email, findUser.getAuthority());
             return new Oauth2UserResponseDto(userDto);
 
         // 유저 데이터가 존재하지 않는 경우 (회원 가입 수행)
         } catch (UsernameNotFoundException e) {
-            User newUser = new User(oauth2Response.getName(), oauth2Key, UserType.USER, oauth2Response.getEmail());
+            User newUser = new User(name, oauth2Key, checkRole(email), email);
             userRepository.save(newUser);
 
-            Oauth2UserDto userDto = new Oauth2UserDto(oauth2Response.getName(), oauth2Key, oauth2Response.getEmail(), UserType.USER);
+            Oauth2UserDto userDto = new Oauth2UserDto(name, oauth2Key, email, newUser.getAuthority());
             return new Oauth2UserResponseDto(userDto);
+        }
+    }
+
+    private UserType checkRole(String email) {
+
+        if (email.equals("admin@naver.com") || email.equals("admin@google.com")) {
+            return UserType.ADMIN;
+        } else {
+            return UserType.USER;
         }
     }
 }
