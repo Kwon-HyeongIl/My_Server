@@ -1,14 +1,10 @@
 package com.khi.server.security.service;
 
+import com.khi.server.dto.response.oauth2.*;
 import com.khi.server.mainLogic.constants.UserType;
-import com.khi.server.mainLogic.dto.response.oauth2.*;
 import com.khi.server.mainLogic.entity.User;
 import com.khi.server.mainLogic.repository.UserRepository;
-import com.khi.server.security.entity.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;

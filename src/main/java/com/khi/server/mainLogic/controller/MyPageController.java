@@ -1,10 +1,8 @@
 package com.khi.server.mainLogic.controller;
 
-import com.khi.server.mainLogic.dto.request.MyPageCreateRequestDto;
-import com.khi.server.mainLogic.dto.response.MyPageResponseDto;
-import com.khi.server.mainLogic.dto.response.UserResponseDto;
-import com.khi.server.mainLogic.entity.MyPage;
-import com.khi.server.mainLogic.entity.User;
+import com.khi.server.dto.request.MyPageCreateRequestDto;
+import com.khi.server.dto.response.MyPageResponseDto;
+import com.khi.server.dto.response.UserResponseDto;
 import com.khi.server.mainLogic.service.MyPageService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

@@ -1,9 +1,9 @@
 package com.khi.server.mainLogic.service;
 
 import com.khi.server.mainLogic.constants.UserType;
-import com.khi.server.mainLogic.dto.request.SignupRequestDto;
-import com.khi.server.mainLogic.dto.response.TokenResponseDto;
-import com.khi.server.mainLogic.dto.response.UserResponseDto;
+import com.khi.server.dto.request.SignupRequestDto;
+import com.khi.server.dto.response.TokenResponseDto;
+import com.khi.server.dto.response.UserResponseDto;
 import com.khi.server.mainLogic.entity.User;
 import com.khi.server.security.auth.JwtAuthToken;
 import com.khi.server.mainLogic.repository.UserRepository;

@@ -1,4 +1,4 @@
-package com.khi.server.mainLogic.dto.response;
+package com.khi.server.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

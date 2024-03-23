@@ -1,4 +1,4 @@
-package com.khi.server.mainLogic.dto.request;
+package com.khi.server.dto.request;
 
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AccessLevel;
@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class TeamRequestDto {
+public class MyPageCreateRequestDto {
 
     @NotEmpty
-    private String name;
+    private String content;
 }

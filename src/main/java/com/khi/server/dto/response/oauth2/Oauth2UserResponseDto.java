@@ -1,7 +1,6 @@
-package com.khi.server.mainLogic.dto.response.oauth2;
+package com.khi.server.dto.response.oauth2;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 

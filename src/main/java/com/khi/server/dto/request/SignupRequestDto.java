@@ -1,4 +1,4 @@
-package com.khi.server.mainLogic.dto.request;
+package com.khi.server.dto.request;
 
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.Email;
@@ -11,7 +11,11 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class SigninRequestDto {
+public class SignupRequestDto {
+
+    @NotEmpty
+    @Column(length = 10)
+    private String username;
 
     @NotEmpty
     @Email
@@ -20,4 +24,7 @@ public class SigninRequestDto {
     @NotEmpty
     @Column(length = 30)
     private String password;
+
+    // 기본값 추가
+    private String adminKey = "USER";
 }

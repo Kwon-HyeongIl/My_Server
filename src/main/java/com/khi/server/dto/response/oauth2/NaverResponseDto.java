@@ -1,4 +1,4 @@
-package com.khi.server.mainLogic.dto.response.oauth2;
+package com.khi.server.dto.response.oauth2;
 
 import java.util.Map;
 

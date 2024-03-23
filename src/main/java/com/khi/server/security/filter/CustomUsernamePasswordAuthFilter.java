@@ -1,13 +1,12 @@
 package com.khi.server.security.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.khi.server.mainLogic.dto.request.SigninRequestDto;
+import com.khi.server.dto.request.SigninRequestDto;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

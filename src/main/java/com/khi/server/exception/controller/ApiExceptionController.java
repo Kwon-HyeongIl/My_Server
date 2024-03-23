@@ -1,8 +1,7 @@
-package com.khi.server.mainLogic.exception.controller;
+package com.khi.server.exception.controller;
 
-import com.khi.server.mainLogic.dto.response.ErrorResultResponseDto;
+import com.khi.server.dto.response.ErrorResultResponseDto;
 import jakarta.persistence.EntityNotFoundException;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

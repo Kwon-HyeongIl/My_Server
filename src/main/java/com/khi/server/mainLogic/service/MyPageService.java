@@ -1,8 +1,8 @@
 package com.khi.server.mainLogic.service;
 
-import com.khi.server.mainLogic.dto.request.MyPageCreateRequestDto;
-import com.khi.server.mainLogic.dto.response.MyPageResponseDto;
-import com.khi.server.mainLogic.dto.response.UserResponseDto;
+import com.khi.server.dto.request.MyPageCreateRequestDto;
+import com.khi.server.dto.response.MyPageResponseDto;
+import com.khi.server.dto.response.UserResponseDto;
 import com.khi.server.mainLogic.entity.Image;
 import com.khi.server.mainLogic.entity.MyPage;
 import com.khi.server.mainLogic.entity.User;
@@ -12,7 +12,6 @@ import com.khi.server.mainLogic.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;

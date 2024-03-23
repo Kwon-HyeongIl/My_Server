@@ -1,6 +1,6 @@
 package com.khi.server.mainLogic.controller;
 
-import com.khi.server.mainLogic.dto.request.TeamRequestDto;
+import com.khi.server.dto.request.TeamRequestDto;
 import com.khi.server.mainLogic.entity.Team;
 import com.khi.server.mainLogic.service.TeamService;
 import jakarta.validation.Valid;

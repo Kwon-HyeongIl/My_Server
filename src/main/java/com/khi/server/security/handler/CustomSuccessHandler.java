@@ -1,6 +1,6 @@
 package com.khi.server.security.handler;
 
-import com.khi.server.mainLogic.dto.response.oauth2.Oauth2UserResponseDto;
+import com.khi.server.dto.response.oauth2.Oauth2UserResponseDto;
 import com.khi.server.security.utils.JwtTokenProvider;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
